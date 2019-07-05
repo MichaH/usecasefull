@@ -16,16 +16,16 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Michael.Hofmann@OrangeObjects.de
  */
-public class NodeSubtype extends AbstractLeaf {
+public class NodeName extends AbstractLeaf {
 
-    private static final Log LOGGER = LogFactory.getLog(NodeSubtype.class);
+    private static final Log LOGGER = LogFactory.getLog(NodeName.class);
     
     /*  ***********************************************************************
      *  C o n s t r u c t o r
      **************************************************************************/
     
-    NodeSubtype(AbstractNode father, NodeCallback nodeCallback, UseCase usecase) {
-        super(Element.subtype, father, nodeCallback, usecase);
+    NodeName(AbstractNode father, NodeCallback nodeCallback, UseCase usecase) {
+        super(Element.name, father, nodeCallback, usecase);
     }
 
     /*  ***********************************************************************
@@ -34,8 +34,8 @@ public class NodeSubtype extends AbstractLeaf {
     
     @Override
     protected void endElementExe() {
-        nodeCallback.contentSubtype(content.toString());
-        usecase.setSubtype(content.toString());
+        nodeCallback.contentName(content.toString());
+        usecase.setName(content.toString());
     }
 
     /*  ***********************************************************************

@@ -25,6 +25,8 @@ public abstract class AbstractNode implements Node {
     final protected Node father;
     final protected NodeCallback nodeCallback;
     
+    final protected StringBuilder content = new StringBuilder();
+    
     /*  ***********************************************************************
      *  C o n s t r u c t o r
      **************************************************************************/
@@ -79,7 +81,8 @@ public abstract class AbstractNode implements Node {
     }
     
     @Override
-    public void content(String content) {
+    public void addCcontent(String content) {
+        this.content.append(content);
     }
 
     /*  ***********************************************************************

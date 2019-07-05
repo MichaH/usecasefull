@@ -22,12 +22,16 @@ import org.xml.sax.helpers.DefaultHandler;
 import net.michaelhofmann.usecasefull.tree.Node;
 import net.michaelhofmann.usecasefull.visitor.NodeCallback;
 import net.michaelhofmann.usecasefull.visitor.StdoutNodeExecutor;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
  * @author Michael.Hofmann@OrangeObjects.de
  */
 public class Parse {
+    
+    private static final Log LOGGER = LogFactory.getLog(Parse.class);
 
     /**
      * @param args the command line arguments
@@ -74,8 +78,8 @@ public class Parse {
                 public void characters(char ch[], int start, int length)
                         throws SAXException {
                     String content = new String(ch, start, length);
-                    // System.out.println("content = " + content);
-                    pointer.content(content);
+                    LOGGER.debug("content = " + content);
+                    pointer.addCcontent(content);
                 }
             };
 

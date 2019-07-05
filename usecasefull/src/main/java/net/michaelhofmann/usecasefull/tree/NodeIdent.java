@@ -33,9 +33,9 @@ public class NodeIdent extends AbstractLeaf {
      **************************************************************************/
     
     @Override
-    public void content(String content) {
-        nodeCallback.contentId(content);
-        usecase.setIdent(content);
+    protected void endElementExe() {
+        nodeCallback.contentIdent(content.toString());
+        usecase.setIdent(content.toString());
     }
 
     /*  ***********************************************************************

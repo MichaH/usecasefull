@@ -25,5 +25,5 @@ public interface Node {
     public Node endElement(String uri, String localName, String elementName);
     public Node endElement(Element element);
     
-    public void content(String content);
+    public void addCcontent(String content);
 }

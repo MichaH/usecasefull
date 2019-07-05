@@ -45,13 +45,30 @@ public class StdoutNodeExecutor implements NodeCallback {
     }
 
     @Override
-    public void startId() {
+    public void startIdent() {
         System.out.println("--> startId");
     }
 
     @Override
-    public void contentId(String content) {
-        System.out.println("    id  = " + content);
+    public void startSubtype() {
+        System.out.println("--> startSubtype");
+    }
+
+    @Override
+    public void startName() {
+        System.out.println("--> startName");
+    }    
+    
+    @Override
+    public void startDescription() {
+        System.out.println("--> startDescription");
+    }
+    
+    
+    
+    @Override
+    public void contentIdent(String content) {
+        System.out.println("    ident  = " + content);
     }
 
     @Override
@@ -59,4 +76,13 @@ public class StdoutNodeExecutor implements NodeCallback {
         System.out.println("    subtype  = " + content);
     }
 
+    @Override
+    public void contentName(String content) {
+        System.out.println("    name  = " + content);
+    }
+
+    @Override
+    public void contentSummary(String content) {
+        System.out.println("    summary  = " + content);
+    }
 }

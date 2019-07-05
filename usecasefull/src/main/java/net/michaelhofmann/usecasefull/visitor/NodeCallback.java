@@ -15,9 +15,15 @@ public interface NodeCallback {
 
     public void startUsecases();
     public void startUsecase();
-    public void startId();
+    public void startIdent();
+    public void startSubtype();
+    public void startName();
+    public void startDescription();
 
-    public void contentId(String content);
     public void contentSubtype(String content);
+    public void contentIdent(String content);
+    public void contentName(String content);
+    public void contentSummary(String content);
+
     
 }

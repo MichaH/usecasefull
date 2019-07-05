@@ -16,23 +16,9 @@ package net.michaelhofmann.usecasefull.usecase;
 public class UseCase {
     
     private String subtype;
-
-    public String getSubtype() {
-        return subtype;
-    }
-
-    public void setSubtype(String subtype) {
-        this.subtype = subtype;
-    }
     private String ident;
-
-    public String getIdent() {
-        return ident;
-    }
-
-    public void setIdent(String ident) {
-        this.ident = ident;
-    }
+    private String name;
+    private Description description = new Description();
 
     /*  ***********************************************************************
      *  C o n s t r u c t o r
@@ -50,4 +36,35 @@ public class UseCase {
      *  G e t t e r  und  S e t t e r
      **************************************************************************/
 
+    public String getSubtype() {
+        return subtype;
+    }
+
+    public void setSubtype(String subtype) {
+        this.subtype = subtype;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getIdent() {
+        return ident;
+    }
+
+    public void setIdent(String ident) {
+        this.ident = ident;
+    }
+
+    public Description getDescription() {
+        return description;
+    }
+
+    public void setDescription(Description description) {
+        this.description = description;
+    }
 }
