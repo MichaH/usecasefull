@@ -47,7 +47,8 @@ public class PmWikiNodeExecutor implements NodeCallback {
 
     @Override
     public void startUsecase() {
-        System.out.print("!! ");
+        System.out.println("\n----");
+        System.out.print("!!! ");
     }
 
     @Override
@@ -70,11 +71,12 @@ public class PmWikiNodeExecutor implements NodeCallback {
     
     @Override
     public void contentIdent(String content) {
-        System.out.print(content);
+        System.out.print(" " + content);
     }
 
     @Override
     public void contentSubtype(String content) {
+        System.out.print(content);
     }
 
     @Override
@@ -84,6 +86,8 @@ public class PmWikiNodeExecutor implements NodeCallback {
 
     @Override
     public void contentSummary(String content) {
+        content = content.replaceAll("\\s*\\n\\s*", " ");
+        System.out.println("[+" + content + "+]");
     }
 
     @Override
