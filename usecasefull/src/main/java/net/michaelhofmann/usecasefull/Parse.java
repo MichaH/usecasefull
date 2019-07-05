@@ -21,6 +21,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 import net.michaelhofmann.usecasefull.tree.Node;
 import net.michaelhofmann.usecasefull.visitor.NodeCallback;
+import net.michaelhofmann.usecasefull.visitor.PmWikiNodeExecutor;
 import net.michaelhofmann.usecasefull.visitor.StdoutNodeExecutor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -47,13 +48,19 @@ public class Parse {
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser saxParser = factory.newSAXParser();
 
-            NodeCallback callback = new StdoutNodeExecutor();
+            // NodeCallback callback = new StdoutNodeExecutor();
+            NodeCallback callback = new PmWikiNodeExecutor();
             
             final NodeRoot nodeRoot = new NodeRoot(null, callback);
 
             DefaultHandler handler = new DefaultHandler() {
                 
                 Node pointer = nodeRoot;
+
+                @Override
+                public void startDocument() throws SAXException {
+                    pointer.startDocument();
+                }
 
                 @Override
                 public void startElement(String uri, String localName,

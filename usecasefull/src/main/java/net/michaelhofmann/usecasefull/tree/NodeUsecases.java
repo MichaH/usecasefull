@@ -55,6 +55,7 @@ public class NodeUsecases extends AbstractNode {
 
     @Override
     protected void endElementExe() {
-        LOGGER.info("size of usecase queue is " + ucQueue.size());
+        nodeCallback.finishedQueue(ucQueue);
+        LOGGER.debug("size of usecase queue is " + ucQueue.size());
     }
 }

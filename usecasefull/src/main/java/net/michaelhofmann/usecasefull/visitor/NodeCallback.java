@@ -7,11 +7,15 @@
  */
 package net.michaelhofmann.usecasefull.visitor;
 
+import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
+
 /**
  *
  * @author Michael.Hofmann@OrangeObjects.de
  */
 public interface NodeCallback {
+
+    public void startDocument();
 
     public void startUsecases();
     public void startUsecase();
@@ -24,6 +28,9 @@ public interface NodeCallback {
     public void contentIdent(String content);
     public void contentName(String content);
     public void contentSummary(String content);
+
+    public void finishedQueue(UseCaseQueue ucQueue);
+
 
     
 }

@@ -68,6 +68,6 @@ public class NodeUsecase extends AbstractNode {
     @Override
     protected void endElementExe() {
         ucQueue.put(usecase);
-        LOGGER.info("usecase has been added to queue, size is " + ucQueue.size());
+        LOGGER.debug("usecase has been added to queue, size is " + ucQueue.size());
     }
 }

@@ -50,6 +50,10 @@ public abstract class AbstractNode implements Node {
      **************************************************************************/
 
     @Override
+    public void startDocument() {
+    }
+    
+    @Override
     public Node startElement(String uri, String localName, String elementName, 
             Attributes attributes) throws SAXException {
         return startElement(

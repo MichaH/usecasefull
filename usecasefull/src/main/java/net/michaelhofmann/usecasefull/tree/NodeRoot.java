@@ -34,6 +34,11 @@ public class NodeRoot extends AbstractNode {
      **************************************************************************/
 
     @Override
+    public void startDocument() {
+         nodeCallback.startDocument();
+    }
+    
+    @Override
     public Node startElement(Element element, Attributes attributes)
             throws SAXException {
         

@@ -15,15 +15,15 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Michael.Hofmann@OrangeObjects.de
  */
-public class StdoutNodeExecutor implements NodeCallback {
+public class PmWikiNodeExecutor implements NodeCallback {
 
-    private static final Log LOGGER = LogFactory.getLog(StdoutNodeExecutor.class);
+    private static final Log LOGGER = LogFactory.getLog(PmWikiNodeExecutor.class);
 
     /*  ***********************************************************************
      *  C o n s t r u c t o r
      **************************************************************************/
 
-    public StdoutNodeExecutor() {
+    public PmWikiNodeExecutor() {
     }
 
     /*  ***********************************************************************
@@ -37,59 +37,53 @@ public class StdoutNodeExecutor implements NodeCallback {
 
     @Override
     public void startDocument() {
-        System.out.println("--> startDocument");
+        System.out.println("(:title UseCases MobilHardware :)\n");
+        System.out.println("(:toc :)\n");
     }
-
+    
     @Override
     public void startUsecases() {
-        System.out.println("--> startUsecases");
     }
 
     @Override
     public void startUsecase() {
-        System.out.println("--> startUsecase");
+        System.out.print("!! ");
     }
 
     @Override
     public void startIdent() {
-        System.out.println("--> startId");
     }
 
     @Override
     public void startSubtype() {
-        System.out.println("--> startSubtype");
     }
 
     @Override
     public void startName() {
-        System.out.println("--> startName");
     }    
     
     @Override
     public void startDescription() {
-        System.out.println("--> startDescription");
     }
     
     
     
     @Override
     public void contentIdent(String content) {
-        System.out.println("    ident  = " + content);
+        System.out.print(content);
     }
 
     @Override
     public void contentSubtype(String content) {
-        System.out.println("    subtype  = " + content);
     }
 
     @Override
     public void contentName(String content) {
-        System.out.println("    name  = " + content);
+        System.out.println(" | " + content);
     }
 
     @Override
     public void contentSummary(String content) {
-        System.out.println("    summary  = " + content);
     }
 
     @Override

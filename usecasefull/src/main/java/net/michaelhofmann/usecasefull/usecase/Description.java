@@ -19,7 +19,9 @@ public class Description {
     private static final Log LOGGER = LogFactory.getLog(Description.class);
     
     private String summary;
-
+    private String detailed;
+    private String link;
+        
     /*  ***********************************************************************
      *  C o n s t r u c t o r
      **************************************************************************/
@@ -42,5 +44,21 @@ public class Description {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public String getDetailed() {
+        return detailed;
+    }
+
+    public void setDetailed(String detailed) {
+        this.detailed = detailed;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }
