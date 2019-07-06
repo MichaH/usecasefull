@@ -48,7 +48,7 @@ public class PmWikiNodeExecutor implements NodeCallback {
 
     @Override
     public void startUsecase() {
-        System.out.println("\n----");
+        System.out.println("\n\n----");
         System.out.print("!!! ");
     }
 
@@ -92,6 +92,22 @@ public class PmWikiNodeExecutor implements NodeCallback {
     @Override
     public void startActor() {
     }
+
+    @Override
+    public void startWorkflow() {
+        System.out.println("\n!!!!! Workflow");        
+    }
+    
+    @Override
+    public void startStep(long order, String actor) {
+    }
+
+    @Override
+    public void startStepextension(long step, long order) {
+    }
+    
+    
+    
     
     @Override
     public void contentIdent(String content) {
@@ -143,6 +159,23 @@ public class PmWikiNodeExecutor implements NodeCallback {
             actorCounter++;
         }
     }
+
+    @Override
+    public void contentStep(String content, long order, String actor) {
+        if (StringUtils.isNotBlank(content)) {
+            content = normalize(content);
+            if (StringUtils.isBlank(actor)) {
+                System.out.print(order + ". " + content);
+            } else {
+                System.out.print(order + ". (" + actor + ") " + content);
+            }
+            System.out.println(" \\\\");
+        }        
+    }
+
+    @Override
+    public void contentStepextension(String content, long step, long order) {
+    }
     
     private String normalize(String lines) {
         return lines != null ? lines.replaceAll("\\s*\\n\\s*", " ") : "";
@@ -151,4 +184,5 @@ public class PmWikiNodeExecutor implements NodeCallback {
     @Override
     public void finishedQueue(UseCaseQueue ucQueue) {
     }
+
 }

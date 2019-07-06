@@ -6,42 +6,47 @@
  * 
  */
 
-package net.michaelhofmann.usecasefull.tree;
-import java.util.Optional;
-import net.michaelhofmann.usecasefull.usecase.UseCase;
-import net.michaelhofmann.usecasefull.visitor.NodeCallback;
+package net.michaelhofmann.usecasefull.usecase;
+import java.util.Map;
+import java.util.TreeMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.xml.sax.Attributes;
 
 /**
  *
  * @author Michael.Hofmann@OrangeObjects.de
  */
-public abstract class AbstractLeaf extends AbstractNode {
+public class Workflow {
 
-    private static final Log LOGGER = LogFactory.getLog(AbstractLeaf.class);
-
-    protected final UseCase usecase;
+    private static final Log LOGGER = LogFactory.getLog(Workflow.class);
+    
+    private Map<Long, Step> steps = new TreeMap<>();
 
     /*  ***********************************************************************
      *  C o n s t r u c t o r
      **************************************************************************/
 
-    public AbstractLeaf(Element nodeType, Optional<Attributes> optAttributes,
-            AbstractNode father, NodeCallback nodeCallback, UseCase usecase) {
-        super(nodeType, optAttributes, father, nodeCallback);
-        this.usecase = usecase;
+    public Workflow() {
     }
 
     /*  ***********************************************************************
      *  M i s c
      **************************************************************************/
-    
-    
-    
+
 
     /*  ***********************************************************************
      *  G e t t e r  und  S e t t e r
      **************************************************************************/
+
+    public Map<Long, Step> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(Map<Long, Step> steps) {
+        this.steps = steps;
+    }
+
+    public Step putStep(Long order, Step value) {
+        return steps.put(order, value);
+    }
 }

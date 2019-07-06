@@ -100,6 +100,24 @@ public class StdoutNodeExecutor implements NodeCallback {
     public void startVariation(long num) {
         System.out.println("--> startActor, num=" + num);
     }
+
+    @Override
+    public void startWorkflow() {
+        System.out.println("--> startWorkflow");
+    }
+
+    @Override
+    public void startStep(long order, String actor) {
+        System.out.println("--> startStep, order=" + order + "actor=" + actor);
+    }
+    
+    @Override
+    public void startStepextension(long step, long order) {
+        System.out.println("--> startStep, step=" + step + "order=" + order);
+    }
+    
+    
+    
     
     
     @Override
@@ -134,9 +152,21 @@ public class StdoutNodeExecutor implements NodeCallback {
 
     @Override
     public void contentVariation(String content, long num) {
-        System.out.println("    actor  = " + content + ", num=" + num);
+        System.out.println("    variation = " + content 
+                + ", num=" + num);
     }
 
+    @Override
+    public void contentStep(String content, long order, String actor) {
+        System.out.println("    step = " + content
+                + ", order=" + order 
+                + ", actor=" + actor);
+    }
+
+    @Override
+    public void contentStepextension(String toString, long step, long order) {
+    }
+    
     
     @Override
     public void finishedQueue(UseCaseQueue ucQueue) {

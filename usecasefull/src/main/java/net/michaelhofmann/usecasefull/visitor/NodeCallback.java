@@ -8,7 +8,6 @@
 package net.michaelhofmann.usecasefull.visitor;
 
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
-import org.xml.sax.Attributes;
 
 /**
  *
@@ -30,6 +29,9 @@ public interface NodeCallback {
     public void startVariation(long num);
     public void startNotes();
     public void startNote();
+    public void startWorkflow();
+    public void startStep(long attributeOrder, String attributeActor);
+    public void startStepextension(long step, long order);
 
     public void contentSubtype(String content);
     public void contentIdent(String content);
@@ -38,7 +40,8 @@ public interface NodeCallback {
     public void contentSummary(String content);
     public void contentVariation(String toString, long num);
     public void contentNote(String content);
+    public void contentStep(String toString, long order, String actor);
+    public void contentStepextension(String toString, long step, long order);
 
     public void finishedQueue(UseCaseQueue ucQueue);
-
 }

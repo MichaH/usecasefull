@@ -29,6 +29,7 @@ public class UseCase {
     private List<String> notes = new ArrayList<>();
     private Set<String> seeAlsoRef = new HashSet<>();
     private Set<URI> seeAlsoLink = new HashSet<>();
+    private Workflow workflow = new Workflow();
 
     /*  ***********************************************************************
      *  C o n s t r u c t o r
@@ -109,4 +110,13 @@ public class UseCase {
     public void setSeeAlsoLink(Set<URI> seeAlsoLink) {
         this.seeAlsoLink = seeAlsoLink;
     }
+
+    public Workflow getWorkflow() {
+        return workflow;
+    }
+
+    public void setWorkflow(Workflow workflow) {
+        this.workflow = workflow;
+    }
+    
 }

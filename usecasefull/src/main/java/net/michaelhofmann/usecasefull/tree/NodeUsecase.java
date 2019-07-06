@@ -63,6 +63,9 @@ public class NodeUsecase extends AbstractNode {
             case actors:
                 nodeCallback.startActors();
                 return new NodeActors(this, nodeCallback, usecase);
+            case workflow:
+                nodeCallback.startWorkflow();
+                return new NodeWorkflow(this, nodeCallback, usecase);
         }
         return this;
     }
