@@ -25,7 +25,7 @@ public class NodeSubtype extends AbstractLeaf {
      **************************************************************************/
     
     NodeSubtype(AbstractNode father, NodeCallback nodeCallback, UseCase usecase) {
-        super(Element.subtype, father, nodeCallback, usecase);
+        super(Element.subtype, NULL_ATTRIBUTES, father, nodeCallback, usecase);
     }
 
     /*  ***********************************************************************

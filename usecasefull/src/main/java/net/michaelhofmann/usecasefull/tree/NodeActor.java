@@ -26,7 +26,7 @@ public class NodeActor extends AbstractLeaf {
     
     NodeActor(AbstractNode father, NodeCallback nodeCallback,
             UseCase usecase) {
-        super(Element.actor, father, nodeCallback, usecase);
+        super(Element.actor, NULL_ATTRIBUTES, father, nodeCallback, usecase);
     }
 
     /*  ***********************************************************************

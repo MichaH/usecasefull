@@ -32,7 +32,7 @@ public class NodeUsecase extends AbstractNode {
 
     NodeUsecase(AbstractNode father, NodeCallback nodeCallback,
             UseCaseQueue ucQueue) {
-        super(Element.usecase, father, nodeCallback);
+        super(Element.usecase, NULL_ATTRIBUTES, father, nodeCallback);
         this.ucQueue = ucQueue;
     }
 

@@ -25,7 +25,7 @@ public class NodeName extends AbstractLeaf {
      **************************************************************************/
     
     NodeName(AbstractNode father, NodeCallback nodeCallback, UseCase usecase) {
-        super(Element.name, father, nodeCallback, usecase);
+        super(Element.name, NULL_ATTRIBUTES, father, nodeCallback, usecase);
     }
 
     /*  ***********************************************************************

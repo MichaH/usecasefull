@@ -26,7 +26,7 @@ public class NodeSummary extends AbstractLeaf {
     
     NodeSummary(AbstractNode father, NodeCallback nodeCallback,
             UseCase usecase) {
-        super(Element.summary, father, nodeCallback, usecase);
+        super(Element.summary, NULL_ATTRIBUTES, father, nodeCallback, usecase);
     }
 
     /*  ***********************************************************************

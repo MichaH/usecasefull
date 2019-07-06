@@ -7,6 +7,8 @@
  */
 
 package net.michaelhofmann.usecasefull.usecase;
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -20,6 +22,7 @@ public class Description {
     
     private String summary;
     private String detailed;
+    private Map<Long, String> variations = new HashMap<>();
     private String link;
         
     /*  ***********************************************************************
@@ -52,6 +55,18 @@ public class Description {
 
     public void setDetailed(String detailed) {
         this.detailed = detailed;
+    }
+
+    public Map<Long, String> getVariations() {
+        return variations;
+    }
+
+    public void setVariations(Map<Long, String> variations) {
+        this.variations = variations;
+    }
+
+    public String putVariation(Long num, String content) {
+        return variations.put(num, content);
     }
 
     public String getLink() {

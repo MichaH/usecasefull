@@ -7,6 +7,7 @@
  */
 
 package net.michaelhofmann.usecasefull.tree;
+import java.util.Optional;
 import net.michaelhofmann.usecasefull.visitor.NodeCallback;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,22 +23,26 @@ public abstract class AbstractNode implements Node {
     private static final Log LOGGER = LogFactory.getLog(AbstractNode.class);
 
     final protected Element nodeType;
+    final protected Optional<Attributes> optAttributes;
     final protected Node father;
     final protected NodeCallback nodeCallback;
     
     final protected StringBuilder content = new StringBuilder();
     
+    public static final Optional<Attributes> NULL_ATTRIBUTES = Optional.empty();
+    
     /*  ***********************************************************************
      *  C o n s t r u c t o r
      **************************************************************************/
 
-    public AbstractNode(Element nodeType, AbstractNode father,
-            NodeCallback nodeCallback) {
+    public AbstractNode(Element nodeType, Optional<Attributes> optAttributes,
+            AbstractNode father, NodeCallback nodeCallback) {
         
         assert nodeType != null : "nodeType is a mandatory parameter";
         assert nodeCallback != null : "nodeCallback is a mandatory parameter";
         
         this.nodeType = nodeType;
+        this.optAttributes = optAttributes;
         this.father = father;
         this.nodeCallback = nodeCallback;
 
@@ -64,7 +69,7 @@ public abstract class AbstractNode implements Node {
     public Node startElement(Element element, Attributes attributes)
             throws SAXException {
         throw new SAXException("element '" + getNodeType().name()
-                + "' has no subelements");
+                + "' has no subelements (" + element.name() + ")");
     }
     
     @Override

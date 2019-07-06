@@ -7,6 +7,7 @@
  */
 
 package net.michaelhofmann.usecasefull.tree;
+import java.util.Optional;
 import net.michaelhofmann.usecasefull.usecase.UseCase;
 import net.michaelhofmann.usecasefull.visitor.NodeCallback;
 import org.apache.commons.logging.Log;
@@ -28,9 +29,9 @@ public abstract class AbstractLeaf extends AbstractNode {
      *  C o n s t r u c t o r
      **************************************************************************/
 
-    public AbstractLeaf(Element nodeType, AbstractNode father, 
-            NodeCallback nodeCallback, UseCase usecase) {
-        super(nodeType, father, nodeCallback);
+    public AbstractLeaf(Element nodeType, Optional<Attributes> optAttributes,
+            AbstractNode father, NodeCallback nodeCallback, UseCase usecase) {
+        super(nodeType, optAttributes, father, nodeCallback);
         this.usecase = usecase;
     }
 

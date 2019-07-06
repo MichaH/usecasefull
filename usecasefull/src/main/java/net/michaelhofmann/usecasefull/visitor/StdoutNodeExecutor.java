@@ -10,6 +10,7 @@ package net.michaelhofmann.usecasefull.visitor;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.xml.sax.Attributes;
 
 /**
  *
@@ -95,6 +96,11 @@ public class StdoutNodeExecutor implements NodeCallback {
         System.out.println("--> startActor");
     }
     
+    @Override
+    public void startVariation(long num) {
+        System.out.println("--> startActor, num=" + num);
+    }
+    
     
     @Override
     public void contentIdent(String content) {
@@ -126,8 +132,15 @@ public class StdoutNodeExecutor implements NodeCallback {
         System.out.println("    actor  = " + content);
     }
 
+    @Override
+    public void contentVariation(String content, long num) {
+        System.out.println("    actor  = " + content + ", num=" + num);
+    }
 
+    
     @Override
     public void finishedQueue(UseCaseQueue ucQueue) {
     }
+
+
 }

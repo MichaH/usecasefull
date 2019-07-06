@@ -28,7 +28,7 @@ public class NodeDescription extends AbstractLeaf {
 
     NodeDescription(AbstractNode father, NodeCallback nodeCallback,
             UseCase usecase) {
-        super(Element.description, father, nodeCallback, usecase);
+        super(Element.description, NULL_ATTRIBUTES, father, nodeCallback, usecase);
     }
 
     /*  ***********************************************************************
@@ -43,6 +43,11 @@ public class NodeDescription extends AbstractLeaf {
             case summary:
                 nodeCallback.startSummary();
                 return new NodeSummary(this, nodeCallback, usecase);
+            case variation:
+                NodeVariation node = new NodeVariation(
+                        this, nodeCallback, attributes, usecase);
+                nodeCallback.startVariation(node.getAttributeNum());
+                return node;
         }
         return this;
     }

@@ -26,7 +26,7 @@ public class NodeNote extends AbstractLeaf {
     
     NodeNote(AbstractNode father, NodeCallback nodeCallback,
             UseCase usecase) {
-        super(Element.note, father, nodeCallback, usecase);
+        super(Element.note, NULL_ATTRIBUTES, father, nodeCallback, usecase);
     }
 
     /*  ***********************************************************************

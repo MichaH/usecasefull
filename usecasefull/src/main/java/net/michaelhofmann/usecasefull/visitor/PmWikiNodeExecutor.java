@@ -71,6 +71,10 @@ public class PmWikiNodeExecutor implements NodeCallback {
     @Override
     public void startSummary() {
     }
+
+    @Override
+    public void startVariation(long num) {
+    }
     
     @Override
     public void startNotes() {
@@ -81,7 +85,7 @@ public class PmWikiNodeExecutor implements NodeCallback {
     
     @Override
     public void startActors() {
-        System.out.print("'''Akteure'''");
+        System.out.print("\n'''Akteure'''");
         actorCounter = 0;
     }
 
@@ -110,6 +114,12 @@ public class PmWikiNodeExecutor implements NodeCallback {
         System.out.println(" \n [+" + content + "+]\n ");
     }
 
+    @Override
+    public void contentVariation(String content, long num) {
+        System.out.println("Variation " + num + ":");
+        System.out.println("-> " + content);
+    }
+    
     @Override
     public void startNote() {
     }
@@ -141,5 +151,4 @@ public class PmWikiNodeExecutor implements NodeCallback {
     @Override
     public void finishedQueue(UseCaseQueue ucQueue) {
     }
-
 }

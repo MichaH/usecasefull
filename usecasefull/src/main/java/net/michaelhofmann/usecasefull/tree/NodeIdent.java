@@ -25,7 +25,7 @@ public class NodeIdent extends AbstractLeaf {
      **************************************************************************/
     
     NodeIdent(AbstractNode father, NodeCallback nodeCallback, UseCase usecase) {
-        super(Element.ident, father, nodeCallback, usecase);
+        super(Element.ident, NULL_ATTRIBUTES, father, nodeCallback, usecase);
     }
 
     /*  ***********************************************************************

@@ -29,7 +29,7 @@ public class NodeUsecases extends AbstractNode {
      **************************************************************************/
 
     NodeUsecases(AbstractNode father, NodeCallback nodeCallback) {
-        super(Element.usecases, father, nodeCallback);
+        super(Element.usecases, NULL_ATTRIBUTES, father, nodeCallback);
     }
 
     /*  ***********************************************************************
