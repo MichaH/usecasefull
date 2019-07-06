@@ -70,6 +70,30 @@ public class StdoutNodeExecutor implements NodeCallback {
         System.out.println("--> startDescription");
     }
     
+    @Override
+    public void startSummary() {
+        System.out.println("--> startSummary");
+    }
+    
+    @Override
+    public void startNotes() {
+        System.out.println("--> startNotes");
+    }
+
+    @Override
+    public void startNote() {
+        System.out.println("--> startNote");
+    }
+
+    @Override
+    public void startActors() {
+        System.out.println("--> startActors");
+    }
+
+    @Override
+    public void startActor() {
+        System.out.println("--> startActor");
+    }
     
     
     @Override
@@ -91,6 +115,17 @@ public class StdoutNodeExecutor implements NodeCallback {
     public void contentSummary(String content) {
         System.out.println("    summary  = " + content);
     }
+
+    @Override
+    public void contentNote(String content) {
+        System.out.println("    note  = " + content);
+    }
+    
+    @Override
+    public void contentActor(String content) {
+        System.out.println("    actor  = " + content);
+    }
+
 
     @Override
     public void finishedQueue(UseCaseQueue ucQueue) {

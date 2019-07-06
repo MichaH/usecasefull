@@ -8,6 +8,7 @@
 
 package net.michaelhofmann.usecasefull.visitor;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -67,7 +68,26 @@ public class PmWikiNodeExecutor implements NodeCallback {
     public void startDescription() {
     }
     
+    @Override
+    public void startSummary() {
+    }
     
+    @Override
+    public void startNotes() {
+        System.out.println("\n!!!!! Bemerkungen");
+    }
+
+    private int actorCounter = 0;
+    
+    @Override
+    public void startActors() {
+        System.out.print("'''Akteure'''");
+        actorCounter = 0;
+    }
+
+    @Override
+    public void startActor() {
+    }
     
     @Override
     public void contentIdent(String content) {
@@ -86,11 +106,40 @@ public class PmWikiNodeExecutor implements NodeCallback {
 
     @Override
     public void contentSummary(String content) {
-        content = content.replaceAll("\\s*\\n\\s*", " ");
-        System.out.println("[+" + content + "+]");
+        content = normalize(content);
+        System.out.println(" \n [+" + content + "+]\n ");
+    }
+
+    @Override
+    public void startNote() {
+    }
+
+    @Override
+    public void contentNote(String content) {
+        content = normalize(content);
+        System.out.println("* " + content);
+    }
+    
+    @Override
+    public void contentActor(String content) {
+        if (StringUtils.isNotBlank(content)) {
+            content = normalize(content);
+            if (actorCounter > 0) {
+                System.out.print(", ");
+            } else {
+                System.out.print(" : ");
+            }
+            System.out.print(content);
+            actorCounter++;
+        }
+    }
+    
+    private String normalize(String lines) {
+        return lines != null ? lines.replaceAll("\\s*\\n\\s*", " ") : "";
     }
 
     @Override
     public void finishedQueue(UseCaseQueue ucQueue) {
     }
+
 }

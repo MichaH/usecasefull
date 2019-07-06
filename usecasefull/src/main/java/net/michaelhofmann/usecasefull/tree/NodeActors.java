@@ -18,17 +18,17 @@ import org.xml.sax.SAXException;
  *
  * @author Michael.Hofmann@OrangeObjects.de
  */
-public class NodeDescription extends AbstractLeaf {
+public class NodeActors extends AbstractLeaf {
 
-    private static final Log LOGGER = LogFactory.getLog(NodeDescription.class);
+    private static final Log LOGGER = LogFactory.getLog(NodeActors.class);
     
     /*  ***********************************************************************
      *  C o n s t r u c t o r
      **************************************************************************/
 
-    NodeDescription(AbstractNode father, NodeCallback nodeCallback,
+    NodeActors(AbstractNode father, NodeCallback nodeCallback,
             UseCase usecase) {
-        super(Element.description, father, nodeCallback, usecase);
+        super(Element.actors, father, nodeCallback, usecase);
     }
 
     /*  ***********************************************************************
@@ -40,11 +40,12 @@ public class NodeDescription extends AbstractLeaf {
             throws SAXException {
         
         switch (element) {
-            case summary:
-                nodeCallback.startSummary();
-                return new NodeSummary(this, nodeCallback, usecase);
+            case actor:
+                nodeCallback.startActor();
+                return new NodeActor(this, nodeCallback, usecase);
+            default:
+                throw new SAXException("element 'actor' expected");
         }
-        return this;
     }
 
     /*  ***********************************************************************

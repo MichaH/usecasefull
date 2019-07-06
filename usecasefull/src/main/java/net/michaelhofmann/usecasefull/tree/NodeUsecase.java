@@ -57,6 +57,12 @@ public class NodeUsecase extends AbstractNode {
             case description:
                 nodeCallback.startDescription();
                 return new NodeDescription(this, nodeCallback, usecase);
+            case notes:
+                nodeCallback.startNotes();
+                return new NodeNotes(this, nodeCallback, usecase);
+            case actors:
+                nodeCallback.startActors();
+                return new NodeActors(this, nodeCallback, usecase);
         }
         return this;
     }

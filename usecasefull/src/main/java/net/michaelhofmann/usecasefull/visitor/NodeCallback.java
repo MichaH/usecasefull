@@ -23,13 +23,21 @@ public interface NodeCallback {
     public void startSubtype();
     public void startName();
     public void startDescription();
+    public void startSummary();
+    public void startNotes();
+    public void startNote();
+    public void startActors();
+    public void startActor();
 
     public void contentSubtype(String content);
     public void contentIdent(String content);
     public void contentName(String content);
     public void contentSummary(String content);
+    public void contentNote(String content);
+    public void contentActor(String content);
 
     public void finishedQueue(UseCaseQueue ucQueue);
+
 
 
     
