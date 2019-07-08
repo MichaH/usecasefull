@@ -7,6 +7,7 @@
  */
 package net.michaelhofmann.usecasefull.tree;
 
+import net.michaelhofmann.usecasefull.usecase.Parameter;
 import net.michaelhofmann.usecasefull.usecase.UseCase;
 import net.michaelhofmann.usecasefull.visitor.NodeCallback;
 import org.apache.commons.logging.Log;
@@ -21,6 +22,7 @@ import org.xml.sax.SAXException;
 public class NodeParameter extends AbstractLeaf {
 
     private static final Log LOGGER = LogFactory.getLog(NodeParameter.class);
+    private final Parameter parameter = new Parameter();
     
     /*  ***********************************************************************
      *  C o n s t r u c t o r
@@ -41,10 +43,10 @@ public class NodeParameter extends AbstractLeaf {
         switch (element) {
             case paranote:
                 nodeCallback.startParanote();
-                return new NodeParanote(this, nodeCallback, usecase);
+                return new NodeParanote(this, nodeCallback, usecase, parameter);
             case paracontent: {
                 NodeParacontent node = new NodeParacontent(
-                        this, nodeCallback, usecase);
+                        this, nodeCallback, usecase, parameter);
                 nodeCallback.startParacontent();
                 return node;
             }

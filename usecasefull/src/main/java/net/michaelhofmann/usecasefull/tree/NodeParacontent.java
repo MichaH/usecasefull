@@ -7,6 +7,7 @@
  */
 package net.michaelhofmann.usecasefull.tree;
 
+import net.michaelhofmann.usecasefull.usecase.Parameter;
 import net.michaelhofmann.usecasefull.usecase.UseCase;
 import net.michaelhofmann.usecasefull.visitor.NodeCallback;
 import org.apache.commons.logging.Log;
@@ -19,14 +20,16 @@ import org.apache.commons.logging.LogFactory;
 public class NodeParacontent extends AbstractLeaf {
 
     private static final Log LOGGER = LogFactory.getLog(NodeParacontent.class);
+    private final Parameter parameter;
     
     /*  ***********************************************************************
      *  C o n s t r u c t o r
      **************************************************************************/
     
     NodeParacontent(AbstractNode father, NodeCallback nodeCallback,
-            UseCase usecase) {
+            UseCase usecase, Parameter parameter) {
         super(Element.paracontent, NULL_ATTRIBUTES, father, nodeCallback, usecase);
+        this.parameter = parameter;
     }
 
     /*  ***********************************************************************
@@ -36,7 +39,7 @@ public class NodeParacontent extends AbstractLeaf {
     @Override
     protected void endElementExe() {
         nodeCallback.contentParacontent(content.toString());
-        usecase.getNotes().add(content.toString());
+        parameter.setContent(content.toString());
     }
 
     /*  ***********************************************************************
