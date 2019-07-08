@@ -32,6 +32,13 @@ public interface NodeCallback {
     public void startWorkflow();
     public void startStep(long attributeOrder, String attributeActor);
     public void startStepextension(long step, long order);
+    public void startAdditionalinfo(long num);
+    public void startContent();
+    public void startCode(String layoutSpaces);
+    public void startInput();
+    public void startParameter();
+    public void startParacontent();
+    public void startParanote();
 
     public void contentSubtype(String content);
     public void contentIdent(String content);
@@ -42,6 +49,16 @@ public interface NodeCallback {
     public void contentNote(String content);
     public void contentStep(String toString, long order, String actor);
     public void contentStepextension(String toString, long step, long order);
+    public void contentContent(String toString);
+    public void contentCode(String content, String layoutSpaces);
+    public void contentParacontent(String toString);
+    public void contentParanote(String toString);
 
     public void finishedQueue(UseCaseQueue ucQueue);
+
+
+
+
+
+
 }

@@ -30,6 +30,7 @@ public class UseCase {
     private Set<String> seeAlsoRef = new HashSet<>();
     private Set<URI> seeAlsoLink = new HashSet<>();
     private Workflow workflow = new Workflow();
+    private List<Parameter> parameters = new ArrayList<>();
 
     /*  ***********************************************************************
      *  C o n s t r u c t o r
@@ -118,5 +119,12 @@ public class UseCase {
     public void setWorkflow(Workflow workflow) {
         this.workflow = workflow;
     }
-    
+
+    public List<Parameter> getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(List<Parameter> parameters) {
+        this.parameters = parameters;
+    }
 }

@@ -10,7 +10,6 @@ package net.michaelhofmann.usecasefull.visitor;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.xml.sax.Attributes;
 
 /**
  *
@@ -115,8 +114,44 @@ public class StdoutNodeExecutor implements NodeCallback {
     public void startStepextension(long step, long order) {
         System.out.println("--> startStep, step=" + step + "order=" + order);
     }
+
+    @Override
+    public void startAdditionalinfo(long num) {
+        System.out.println("--> startAdditionalinfo, num=" + num);
+    }
+
+    @Override
+    public void startContent() {
+        System.out.println("--> startContent");
+    }
+
+    @Override
+    public void startCode(String layoutSpaces) {
+        System.out.println("--> startAdditionalinfo, layoutSpaces=" + layoutSpaces);
+    }
+
+    @Override
+    public void startInput() {
+        System.out.println("--> startInput");
+    }
     
-    
+    @Override
+    public void startParameter() {
+        System.out.println("--> startParameter");
+    }
+
+    @Override
+    public void startParacontent() {
+        System.out.println("--> startParacontent");
+    }
+
+    @Override
+    public void startParanote() {
+        System.out.println("--> startParanote");
+    }
+
+
+
     
     
     
@@ -166,11 +201,34 @@ public class StdoutNodeExecutor implements NodeCallback {
     @Override
     public void contentStepextension(String toString, long step, long order) {
     }
+
+    @Override
+    public void contentContent(String content) {
+        System.out.println("    content  = " + content);
+    }
+
+    @Override
+    public void contentCode(String content, String layoutSpaces) {
+        System.out.println("--> contentCode, layoutSpaces=" + layoutSpaces);
+    }
+
+    @Override
+    public void contentParacontent(String toString) {
+    }
+    
+    @Override
+    public void contentParanote(String toString) {
+    }
+
+
+    
+    
     
     
     @Override
     public void finishedQueue(UseCaseQueue ucQueue) {
     }
+
 
 
 }

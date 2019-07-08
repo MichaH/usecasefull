@@ -5,60 +5,61 @@
  *  http://www.OrangeObjects.de
  * 
  */
-package net.michaelhofmann.usecasefull.tree;
 
+package net.michaelhofmann.usecasefull.tree;
 import java.util.Optional;
-import net.michaelhofmann.usecasefull.usecase.Step;
 import net.michaelhofmann.usecasefull.usecase.UseCase;
 import net.michaelhofmann.usecasefull.visitor.NodeCallback;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
 
 /**
  *
  * @author Michael.Hofmann@OrangeObjects.de
  */
-public class NodeStep extends AbstractLeaf {
+public class NodeAdditionalinfo extends AbstractLeaf {
 
-    private static final Log LOGGER = LogFactory.getLog(NodeStep.class);
+    private static final Log LOGGER = LogFactory.getLog(NodeAdditionalinfo.class);
     
     /*  ***********************************************************************
      *  C o n s t r u c t o r
      **************************************************************************/
-    
-    NodeStep(AbstractNode father, NodeCallback nodeCallback, 
+
+    NodeAdditionalinfo(AbstractNode father, NodeCallback nodeCallback, 
             Attributes attributes, UseCase usecase) {
-        super(Element.step, Optional.of(attributes), father, nodeCallback, usecase);
+        super(Element.additionalinfo, Optional.of(attributes), father, nodeCallback, usecase);
     }
 
     /*  ***********************************************************************
      *  M i s c
      **************************************************************************/
-    
+
     @Override
-    protected void endElementExe() {
-        long order = getAttributeOrder();
-        String actor = getAttributeActor();
-        nodeCallback.contentStep(content.toString(), order, actor);
-        usecase.getWorkflow().putStep(
-                order, new Step(order, actor, content.toString()));
+    public Node startElement(Element element, Attributes attributes)
+            throws SAXException {
+        
+        switch (element) {
+            case content: {
+                NodeContent node = new NodeContent(this, nodeCallback, usecase);
+                nodeCallback.startContent();
+                return node;
+            }
+            case code: {
+                NodeCode node = new NodeCode(this, nodeCallback, attributes, usecase);
+                nodeCallback.startCode(node.getAttributeLayoutSpaces());
+                return node;
+            }
+        }
+        return this;
     }
-    
+
     /*  ***********************************************************************
      *  G e t t e r  und  S e t t e r
      **************************************************************************/
-
-    public long getAttributeOrder() {
-        return getAttributeLong("order");
-    }
-
-    public String getAttributeActor() {
-        if (optAttributes.isPresent()) {
-            Attributes attr = optAttributes.get();
-            return attr.getValue("actor");
-        } else {
-            return "";
-        }
+    
+    public long getAttributeNum() {
+        return getAttributeLong("num");
     }
 }

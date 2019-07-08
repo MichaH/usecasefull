@@ -106,6 +106,42 @@ public class PmWikiNodeExecutor implements NodeCallback {
     public void startStepextension(long step, long order) {
     }
     
+    @Override
+    public void startAdditionalinfo(long num) {
+        System.out.println("\n!!!! Zusatzinformation " + num);        
+    }
+    
+    @Override
+    public void startContent() {
+    }
+
+    @Override
+    public void startCode(String layoutSpaces) {
+    }
+    
+    @Override
+    public void startInput() {
+        System.out.println("\n!!!! Eingangsparameter ");        
+    }
+
+    @Override
+    public void startParameter() {
+    }
+
+    @Override
+    public void startParacontent() {
+    }
+    
+    @Override
+    public void startParanote() {
+    }
+    
+
+    
+
+
+
+
     
     
     
@@ -176,6 +212,29 @@ public class PmWikiNodeExecutor implements NodeCallback {
     @Override
     public void contentStepextension(String content, long step, long order) {
     }
+    
+    @Override
+    public void contentContent(String content) {
+        System.out.println(content + " \\\\");
+    }
+
+    @Override
+    public void contentCode(String content, String layoutSpaces) {
+        System.out.println("   " + content);
+    }
+    
+    @Override
+    public void contentParacontent(String content) {
+        System.out.println("* -> ''" + content + "''");
+    }
+    
+    @Override
+    public void contentParanote(String content) {
+        content = normalize(content);
+        System.out.println("** " + content);
+    }
+
+    
     
     private String normalize(String lines) {
         return lines != null ? lines.replaceAll("\\s*\\n\\s*", " ") : "";

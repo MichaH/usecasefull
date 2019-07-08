@@ -66,6 +66,16 @@ public class NodeUsecase extends AbstractNode {
             case workflow:
                 nodeCallback.startWorkflow();
                 return new NodeWorkflow(this, nodeCallback, usecase);
+            case additionalinfo: {
+                NodeAdditionalinfo node = new NodeAdditionalinfo(
+                        this, nodeCallback, attributes, usecase);
+                nodeCallback.startAdditionalinfo(
+                        node.getAttributeNum());
+                return node;
+            }
+            case input:
+                nodeCallback.startInput();
+                return new NodeInput(this, nodeCallback, usecase);
         }
         return this;
     }

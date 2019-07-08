@@ -93,6 +93,28 @@ public abstract class AbstractNode implements Node {
     public void addCcontent(String content) {
         this.content.append(content);
     }
+    
+    public long getAttributeLong(String attributeName) {
+        if (optAttributes.isPresent()) {
+            try {
+                Attributes attr = optAttributes.get();
+                return Long.parseLong(attr.getValue(attributeName));
+            } catch (NumberFormatException ex) {
+                return -1;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    public String getAttributeString(String attributeName) {
+        if (optAttributes.isPresent()) {
+            Attributes attr = optAttributes.get();
+            return attr.getValue(attributeName);
+        } else {
+            return "";
+        }
+    }    
 
     /*  ***********************************************************************
      *  G e t t e r  und  S e t t e r
