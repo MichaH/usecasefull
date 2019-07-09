@@ -48,6 +48,10 @@ public class UseCase {
      *  G e t t e r  und  S e t t e r
      **************************************************************************/
 
+    public String getSubtypePrefix() {
+        return "gfall".equalsIgnoreCase(subtype) ? "gf" : "uc";
+    }
+    
     public String getSubtype() {
         return subtype;
     }

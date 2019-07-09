@@ -147,7 +147,7 @@ public class PmWikiNodeExecutor implements NodeCallback {
     
     @Override
     public void contentIdent(String content) {
-        System.out.print(" " + content);
+        System.out.print(" " + content + "[[#uc" + content + "]]");
     }
 
     @Override
@@ -242,6 +242,32 @@ public class PmWikiNodeExecutor implements NodeCallback {
 
     @Override
     public void finishedQueue(UseCaseQueue ucQueue) {
+        String formatI = "*[[#uc%s|%s%s]], %s";
+        ucQueue.stream()
+                .filter(u -> StringUtils.isNotBlank(u.getName()))
+                .filter(u -> StringUtils.isNotBlank(u.getIdent()))
+                .sorted((u1, u2) -> u1.getIdent().compareTo(u2.getIdent()))
+                .forEach(u -> {
+                    System.out.println(String.format(formatI,
+                            u.getIdent(),
+                            u.getSubtypePrefix(),
+                            u.getIdent(),
+                            u.getName()));
+        });
+        
+        String formatN = "*[[#uc%s|%s]], %s%s";
+        ucQueue.stream()
+                .filter(u -> StringUtils.isNotBlank(u.getName()))
+                .filter(u -> StringUtils.isNotBlank(u.getIdent()))
+                .sorted((u1, u2) -> u1.getName().compareTo(u2.getName()))
+                .forEach(u -> {
+                    System.out.println(String.format(formatN,
+                            u.getIdent(),
+                            u.getName(),
+                            u.getSubtypePrefix(),
+                            u.getIdent()));
+        });
+        
     }
 
 }
