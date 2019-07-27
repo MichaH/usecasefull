@@ -22,7 +22,6 @@ import org.xml.sax.helpers.DefaultHandler;
 import net.michaelhofmann.usecasefull.tree.Node;
 import net.michaelhofmann.usecasefull.visitor.NodeCallback;
 import net.michaelhofmann.usecasefull.visitor.PmWikiNodeExecutor;
-import net.michaelhofmann.usecasefull.visitor.StdoutNodeExecutor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -50,6 +49,7 @@ public class Parse {
 
             // NodeCallback callback = new StdoutNodeExecutor();
             NodeCallback callback = new PmWikiNodeExecutor();
+            // NodeCallback callback = new AgenUseCases2Parameter();
             
             final NodeRoot nodeRoot = new NodeRoot(null, callback);
 
@@ -90,7 +90,7 @@ public class Parse {
                 }
             };
 
-            File file = new File("C:\\proj\\wob\\abis\\AbisClient\\sysdoc\\AbisDataDicUseCases.xml");
+            File file = new File("C:\\proj\\wob\\abis\\AbisClient\\sysdoc\\useCases\\AbisDataDicUseCases.xml");
             InputStream inputStream = new FileInputStream(file);
             Reader reader = new InputStreamReader(inputStream, "UTF-8");
 
