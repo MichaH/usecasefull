@@ -7,10 +7,15 @@
  */
 package net.michaelhofmann.usecasefull.tree;
 
+import net.michaelhofmann.usecasefull.definition.Element;
+import java.util.Optional;
+import net.michaelhofmann.usecasefull.definition.NoteStereotype;
 import net.michaelhofmann.usecasefull.usecase.UseCase;
 import net.michaelhofmann.usecasefull.visitor.NodeCallback;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.xml.sax.Attributes;
 
 /**
  *
@@ -25,8 +30,8 @@ public class NodeNote extends AbstractLeaf {
      **************************************************************************/
     
     NodeNote(AbstractNode father, NodeCallback nodeCallback,
-            UseCase usecase) {
-        super(Element.note, NULL_ATTRIBUTES, father, nodeCallback, usecase);
+            Attributes attributes, UseCase usecase) {
+        super(Element.note, Optional.of(attributes), father, nodeCallback, usecase);
     }
 
     /*  ***********************************************************************
@@ -35,12 +40,23 @@ public class NodeNote extends AbstractLeaf {
     
     @Override
     protected void endElementExe() {
-        nodeCallback.contentNote(content.toString());
-        usecase.getNotes().add(content.toString());
+        nodeCallback.contentNote(content.toString(), getAttributeStereotype());
+        usecase.addNote(content.toString(), getAttributeStereotype());
     }
 
     /*  ***********************************************************************
      *  G e t t e r  und  S e t t e r
      **************************************************************************/
     
+    public NoteStereotype getAttributeStereotype() {
+        String name = getAttributeString("stereotype");
+        if (StringUtils.isBlank(name)) {
+            return NoteStereotype.Default;
+        }
+        try {
+            return NoteStereotype.valueOf(name);
+        } catch (IllegalArgumentException e) {
+            return NoteStereotype.Unknown;
+        }
+    }
 }

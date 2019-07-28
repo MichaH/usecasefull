@@ -7,6 +7,7 @@
  */
 package net.michaelhofmann.usecasefull.tree;
 
+import net.michaelhofmann.usecasefull.definition.Element;
 import java.util.Optional;
 import net.michaelhofmann.usecasefull.usecase.Step;
 import net.michaelhofmann.usecasefull.usecase.UseCase;
@@ -54,11 +55,6 @@ public class NodeStep extends AbstractLeaf {
     }
 
     public String getAttributeActor() {
-        if (optAttributes.isPresent()) {
-            Attributes attr = optAttributes.get();
-            return attr.getValue("actor");
-        } else {
-            return "";
-        }
+        return getAttributeString("actor");
     }
 }

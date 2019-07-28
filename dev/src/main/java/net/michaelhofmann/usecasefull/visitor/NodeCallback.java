@@ -7,6 +7,7 @@
  */
 package net.michaelhofmann.usecasefull.visitor;
 
+import net.michaelhofmann.usecasefull.definition.NoteStereotype;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
 
 /**
@@ -28,7 +29,7 @@ public interface NodeCallback {
     public void startSummary();
     public void startVariation(long num);
     public void startNotes();
-    public void startNote();
+    public void startNote(NoteStereotype stereotype);
     public void startWorkflow();
     public void startStep(long attributeOrder, String attributeActor);
     public void startStepextension(long step, long order);
@@ -46,7 +47,7 @@ public interface NodeCallback {
     public void contentActor(String content);
     public void contentSummary(String content);
     public void contentVariation(String toString, long num);
-    public void contentNote(String content);
+    public void contentNote(String content, NoteStereotype stereotype);
     public void contentStep(String toString, long order, String actor);
     public void contentStepextension(String toString, long step, long order);
     public void contentContent(String toString);

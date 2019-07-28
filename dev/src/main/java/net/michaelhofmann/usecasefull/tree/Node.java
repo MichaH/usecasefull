@@ -7,6 +7,7 @@
  */
 package net.michaelhofmann.usecasefull.tree;
 
+import net.michaelhofmann.usecasefull.definition.Element;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 

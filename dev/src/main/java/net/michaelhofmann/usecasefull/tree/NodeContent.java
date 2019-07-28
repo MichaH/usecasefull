@@ -7,6 +7,7 @@
  */
 package net.michaelhofmann.usecasefull.tree;
 
+import net.michaelhofmann.usecasefull.definition.Element;
 import net.michaelhofmann.usecasefull.usecase.UseCase;
 import net.michaelhofmann.usecasefull.visitor.NodeCallback;
 import org.apache.commons.logging.Log;
@@ -36,7 +37,7 @@ public class NodeContent extends AbstractLeaf {
     @Override
     protected void endElementExe() {
         nodeCallback.contentContent(content.toString());
-        usecase.getNotes().add(content.toString());
+        // usecase.getNotes().add(content.toString());
     }
 
     /*  ***********************************************************************

@@ -7,6 +7,7 @@
  */
 
 package net.michaelhofmann.usecasefull.tree;
+import net.michaelhofmann.usecasefull.definition.Element;
 import net.michaelhofmann.usecasefull.usecase.UseCase;
 import net.michaelhofmann.usecasefull.visitor.NodeCallback;
 import org.apache.commons.logging.Log;
@@ -41,8 +42,10 @@ public class NodeNotes extends AbstractLeaf {
         
         switch (element) {
             case note:
-                nodeCallback.startNote();
-                return new NodeNote(this, nodeCallback, usecase);
+                NodeNote node = new NodeNote(
+                        this, nodeCallback, attributes, usecase);
+                nodeCallback.startNote(node.getAttributeStereotype());
+                return node;
             default:
                 throw new SAXException("element 'note' expected");
         }

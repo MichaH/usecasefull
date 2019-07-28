@@ -7,6 +7,7 @@
  */
 
 package net.michaelhofmann.usecasefull.visitor;
+import net.michaelhofmann.usecasefull.definition.NoteStereotype;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -173,13 +174,17 @@ public class PmWikiNodeExecutor implements NodeCallback {
     }
     
     @Override
-    public void startNote() {
+    public void startNote(NoteStereotype stereotype) {
     }
 
     @Override
-    public void contentNote(String content) {
+    public void contentNote(String content, NoteStereotype stereotype) {
         content = normalize(content);
-        System.out.println("* " + content);
+        if ((stereotype == null) || (NoteStereotype.Default.equals(stereotype))) {
+            System.out.println("* " + content);
+        } else {
+            System.out.println("* <" + stereotype.name() + "> " + content);
+        }
     }
     
     @Override

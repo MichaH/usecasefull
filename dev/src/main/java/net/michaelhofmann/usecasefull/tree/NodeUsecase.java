@@ -7,6 +7,7 @@
  */
 
 package net.michaelhofmann.usecasefull.tree;
+import net.michaelhofmann.usecasefull.definition.Element;
 import net.michaelhofmann.usecasefull.usecase.UseCase;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
 import net.michaelhofmann.usecasefull.visitor.NodeCallback;

@@ -7,6 +7,7 @@
  */
 
 package net.michaelhofmann.usecasefull.visitor;
+import net.michaelhofmann.usecasefull.definition.NoteStereotype;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -91,13 +92,12 @@ public class SimpleNopExecutor implements NodeCallback {
     }
 
     @Override
-    public void startNote() {
-        
+    public void startNote(NoteStereotype stereotype) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void startWorkflow() {
-        
     }
 
     @Override
@@ -176,8 +176,7 @@ public class SimpleNopExecutor implements NodeCallback {
     }
 
     @Override
-    public void contentNote(String content) {
-        
+    public void contentNote(String content, NoteStereotype stereotype) {
     }
 
     @Override

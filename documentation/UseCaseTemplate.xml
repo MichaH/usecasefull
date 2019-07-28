@@ -33,9 +33,15 @@
             </parameter>
         </input>
         <notes>
+            <note stereotype="Trigger"></note>
+            <note stereotype="Precondition"></note>
+            <note stereotype="Precondition"></note>
             <note></note>
             <note></note>
             <note></note>
+            <note stereotype="Postcondition"></note>
+            <note stereotype="Postcondition"></note>
+            <note stereotype="Invariance"></note>
         </notes>
         <workflow>
             <step order="1" actor=""></step>

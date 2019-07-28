@@ -5,11 +5,9 @@
  *  http://www.OrangeObjects.de
  * 
  */
-package net.michaelhofmann.usecasefull.tree;
 
-import net.michaelhofmann.usecasefull.definition.Element;
-import net.michaelhofmann.usecasefull.usecase.UseCase;
-import net.michaelhofmann.usecasefull.visitor.NodeCallback;
+package net.michaelhofmann.usecasefull.usecase;
+import net.michaelhofmann.usecasefull.definition.NoteStereotype;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -17,30 +15,46 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Michael.Hofmann@OrangeObjects.de
  */
-public class NodeIdent extends AbstractLeaf {
+public class Note {
 
-    private static final Log LOGGER = LogFactory.getLog(NodeIdent.class);
+    private static final Log LOGGER = LogFactory.getLog(Note.class);
     
+    private String content;
+    private NoteStereotype stereotype;
+
     /*  ***********************************************************************
      *  C o n s t r u c t o r
      **************************************************************************/
-    
-    NodeIdent(AbstractNode father, NodeCallback nodeCallback, UseCase usecase) {
-        super(Element.ident, NULL_ATTRIBUTES, father, nodeCallback, usecase);
+
+    public Note(String content, NoteStereotype stereotype) {
+        this.content = content;
+        this.stereotype = stereotype;
     }
 
+    public Note() {
+    }
     /*  ***********************************************************************
      *  M i s c
      **************************************************************************/
-    
-    @Override
-    protected void endElementExe() {
-        nodeCallback.contentIdent(content.toString());
-        usecase.setIdent(content.toString());
-    }
+
 
     /*  ***********************************************************************
      *  G e t t e r  und  S e t t e r
      **************************************************************************/
-    
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public NoteStereotype getStereotype() {
+        return stereotype;
+    }
+
+    public void setStereotype(NoteStereotype stereotype) {
+        this.stereotype = stereotype;
+    }
 }

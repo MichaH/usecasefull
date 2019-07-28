@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import net.michaelhofmann.usecasefull.definition.NoteStereotype;
 
 
 /**
@@ -26,7 +27,7 @@ public class UseCase {
     private String name;
     private Set<String> actors = new HashSet<>();
     private Description description = new Description();
-    private List<String> notes = new ArrayList<>();
+    private List<Note> notes = new ArrayList<>();
     private Set<String> seeAlsoRef = new HashSet<>();
     private Set<URI> seeAlsoLink = new HashSet<>();
     private Workflow workflow = new Workflow();
@@ -43,6 +44,13 @@ public class UseCase {
      *  M i s c
      **************************************************************************/
 
+    public boolean add(Note e) {
+        return notes.add(e);
+    }
+    
+    public boolean addNote(String content, NoteStereotype stereotype) {
+        return notes.add(new Note(content, stereotype));
+    }
 
     /*  ***********************************************************************
      *  G e t t e r  und  S e t t e r
@@ -92,11 +100,11 @@ public class UseCase {
         this.actors = actors;
     }
 
-    public List<String> getNotes() {
+    public List<Note> getNotes() {
         return notes;
     }
 
-    public void setNotes(List<String> notes) {
+    public void setNotes(List<Note> notes) {
         this.notes = notes;
     }
 

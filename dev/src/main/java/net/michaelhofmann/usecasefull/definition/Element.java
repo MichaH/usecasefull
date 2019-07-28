@@ -5,7 +5,7 @@
  *  http://www.OrangeObjects.de
  * 
  */
-package net.michaelhofmann.usecasefull.tree;
+package net.michaelhofmann.usecasefull.definition;
 
 /**
  *
