@@ -1,0 +1,67 @@
+<?xml version="1.0" standalone="yes" ?>
+
+<useCases>
+
+    <useCase>
+        <subtype></subtype>
+        <ident></ident>
+        <name></name>
+        <description>
+            <summary></summary>
+            <detailed></detailed>
+            <variation num="1"></variation>
+            <variation num="2"></variation>
+            <link></link>
+            <link></link>
+        </description>
+        <actors>
+            <actor></actor>
+            <actor></actor>
+            <actor></actor>
+        </actors>
+        <input>
+            <parameter>
+                <paracontent></paracontent>
+            </parameter>
+            <parameter>
+                <paracontent></paracontent>
+                <paranote></paranote>
+            </parameter>
+            <parameter>
+                <paracontent></paracontent>
+                <paranote></paranote>
+            </parameter>
+        </input>
+        <notes>
+            <note></note>
+            <note></note>
+            <note></note>
+        </notes>
+        <workflow>
+            <step order="1" actor=""></step>
+            <stepExtension step="1" order="1">
+                <condition></condition>
+                <step order="1" actor="BackOffice"></step>
+            </stepExtension>
+            <step order="2" actor=""></step>
+            <step order="3" actor=""></step>
+            <step order="4" actor=""></step>
+        </workflow>
+        <additionalInfo num="1">
+            <content></content>
+            <note></note>
+            <code prefix="inherit">
+            </code>
+        </additionalInfo>
+        <seeAlso>
+            <useCaseRef></useCaseRef>
+            <link></link>
+            <useCaseRef></useCaseRef>
+            <link></link>
+            <link></link>
+        </seeAlso>
+        <pi process=""></pi>
+        <pi process=""></pi>
+    </useCase>
+   
+</useCases>
