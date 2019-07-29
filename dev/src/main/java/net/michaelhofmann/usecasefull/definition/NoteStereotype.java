@@ -13,5 +13,8 @@ package net.michaelhofmann.usecasefull.definition;
  */
 public enum NoteStereotype {
     
-    Default, Trigger, Precondition, Postcondition, Invariance, Unknown
+    Default, Unknown, 
+    Trigger, Precondition, Postcondition, PostconditionMinimal, 
+    PostconditionSuccess, MainSuccessScenario, Invariance, Technology,
+    Exception, Assumption, BusinessRule
 }

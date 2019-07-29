@@ -3,10 +3,10 @@
 <useCases>
 
     <useCase>
-        <subtype></subtype>
+        <subtype scope="" goalLevel=""></subtype>
         <ident></ident>
         <name></name>
-        <description>
+        <description priority="" frequencyOfUse="" risk="">
             <summary></summary>
             <detailed></detailed>
             <variation num="1"></variation>
@@ -16,7 +16,9 @@
         </description>
         <actors>
             <actor></actor>
-            <actor></actor>
+            <actor stereotype="primary"></actor>
+            <actor stereotype="participating"></actor>
+            <actor stereotype="interessted"></actor>
             <actor></actor>
         </actors>
         <input>
@@ -53,6 +55,13 @@
             <step order="3" actor=""></step>
             <step order="4" actor=""></step>
         </workflow>
+        <includes>
+            <useCaseRef></useCaseRef>
+            <link></link>
+            <useCaseRef></useCaseRef>
+            <link></link>
+            <link></link>
+        </includes>
         <additionalInfo num="1">
             <content></content>
             <note></note>
@@ -66,6 +75,13 @@
             <link></link>
             <link></link>
         </seeAlso>
+        <!-- All dates formated with the international format defined 
+             by ISO (ISO 8601) as follows: YYYY-MM-DD -->
+        <history creationDate="YYYY-MM-DD"  author="name or email">
+            <changelog upDate="YYYY-MM-DD" author="name or email"></changelog>
+        </history>
+        <state upDate="YYYY-MM-DD" percent=""></state>
+        <tags>comma, seperated, value, liste, or, empty</tags>
         <pi process=""></pi>
         <pi process=""></pi>
     </useCase>
