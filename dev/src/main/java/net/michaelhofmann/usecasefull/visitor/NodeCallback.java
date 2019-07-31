@@ -9,12 +9,15 @@ package net.michaelhofmann.usecasefull.visitor;
 
 import net.michaelhofmann.usecasefull.definition.NoteStereotype;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
+import org.apache.commons.cli.CommandLine;
 
 /**
  *
  * @author Michael.Hofmann@OrangeObjects.de
  */
 public interface NodeCallback {
+    
+    public void init(CommandLine cmd) throws Exception;
 
     public void startDocument();
 

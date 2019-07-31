@@ -101,6 +101,10 @@ public class Transformer {
                         "path to xml input file")
                 .addOption("v", "visitor", true,
                         "full qualified visitor class")
+                .addOption("td", "templateDir", true,
+                        "full qualified directory with template(s)")
+                .addOption("of", "outputFile", true,
+                        "full qualified file for output")
                 ;
     }
 

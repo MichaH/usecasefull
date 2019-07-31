@@ -9,6 +9,7 @@
 package net.michaelhofmann.usecasefull.visitor;
 import net.michaelhofmann.usecasefull.definition.NoteStereotype;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
+import org.apache.commons.cli.CommandLine;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -31,6 +32,10 @@ public class SimpleNopExecutor implements NodeCallback {
      *  M i s c
      **************************************************************************/
 
+    @Override
+    public void init(CommandLine cmd) throws Exception {
+    }
+    
     @Override
     public void startDocument() {
 
@@ -93,7 +98,6 @@ public class SimpleNopExecutor implements NodeCallback {
 
     @Override
     public void startNote(NoteStereotype stereotype) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

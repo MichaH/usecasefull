@@ -1,11 +1,10 @@
 <?xml version="1.0" standalone="yes" ?>
 
 <useCases>
-
     <useCase>
-        <subtype scope="" goalLevel=""></subtype>
-        <ident></ident>
-        <name></name>
+        <subtype scope="" goalLevel="Summary">definedByUser</subtype>
+        <ident>ucf00001</ident>
+        <name>Description in English</name>
         <description priority="" frequencyOfUse="" risk="">
             <summary></summary>
             <detailed></detailed>
@@ -38,8 +37,8 @@
             <note stereotype="Trigger"></note>
             <note stereotype="Precondition"></note>
             <note stereotype="Precondition"></note>
-            <note></note>
-            <note></note>
+            <note>Every use case should have an unique identifier (ident).</note>
+            <note>Every use case should have an unique name.</note>
             <note></note>
             <note stereotype="Postcondition"></note>
             <note stereotype="Postcondition"></note>

@@ -9,17 +9,14 @@
 package net.michaelhofmann.usecasefull;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import net.michaelhofmann.usecasefull.tree.Node;
 import net.michaelhofmann.usecasefull.tree.NodeRoot;
 import net.michaelhofmann.usecasefull.visitor.NodeCallback;
-import net.michaelhofmann.usecasefull.visitor.PmWikiNodeExecutor;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -56,6 +53,7 @@ public class Traversor {
     void start() throws Exception {
         
         NodeCallback callback = callbackFromCommandline();
+        callback.init(cmd);
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser saxParser = factory.newSAXParser();
         final NodeRoot nodeRoot = new NodeRoot(null, callback);

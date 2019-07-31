@@ -17,5 +17,5 @@ public enum Element {
     usecases, usecase, subtype, ident, name, description, summary, detailed,
     variation, link, actors, actor, input, parameter, content, note, workflow, 
     step, stepextension, condition, additionalinfo, code, seealso, usecaseref, 
-    tags
+    tags, history
 }

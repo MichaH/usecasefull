@@ -9,6 +9,7 @@
 package net.michaelhofmann.usecasefull.visitor;
 import net.michaelhofmann.usecasefull.definition.NoteStereotype;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
+import org.apache.commons.cli.CommandLine;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,6 +33,9 @@ public class PmWikiNodeExecutor implements NodeCallback {
      *  M i s c
      **************************************************************************/
 
+    @Override
+    public void init(CommandLine cmd) {
+    }
 
     /*  ***********************************************************************
      *  G e t t e r  und  S e t t e r
