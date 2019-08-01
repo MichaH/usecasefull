@@ -77,6 +77,13 @@ public class NodeUsecase extends AbstractNode {
             case input:
                 nodeCallback.startInput();
                 return new NodeInput(this, nodeCallback, usecase);
+            case state: {
+                NodeState node = new NodeState(
+                        this, nodeCallback, attributes, usecase);
+                nodeCallback.startState(
+                        node.getAttributeUpdate(), node.getAttributePercent());
+                return node;
+            }
         }
         return this;
     }

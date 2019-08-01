@@ -37,7 +37,7 @@ public class NodeSummary extends AbstractLeaf {
     @Override
     protected void endElementExe() {
         nodeCallback.contentSummary(content.toString());
-        usecase.getDescription().setSummary(content.toString());
+        usecase.getDescription().setSummary(toLine(content.toString()));
     }
 
     /*  ***********************************************************************

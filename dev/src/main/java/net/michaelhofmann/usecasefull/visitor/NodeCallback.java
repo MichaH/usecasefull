@@ -7,6 +7,9 @@
  */
 package net.michaelhofmann.usecasefull.visitor;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import net.michaelhofmann.usecasefull.definition.NoteStereotype;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
 import org.apache.commons.cli.CommandLine;
@@ -16,6 +19,9 @@ import org.apache.commons.cli.CommandLine;
  * @author Michael.Hofmann@OrangeObjects.de
  */
 public interface NodeCallback {
+    
+    public static final DateFormat DATEFORM
+            = new SimpleDateFormat("yyyy-MM-dd");
     
     public void init(CommandLine cmd) throws Exception;
 
@@ -43,6 +49,7 @@ public interface NodeCallback {
     public void startParameter();
     public void startParacontent();
     public void startParanote();
+    public void startState(Date update, int percent);
 
     public void contentSubtype(String content);
     public void contentIdent(String content);
@@ -57,8 +64,11 @@ public interface NodeCallback {
     public void contentCode(String content, String layoutSpaces);
     public void contentParacontent(String toString);
     public void contentParanote(String toString);
+    public void contentState(String toString, Date upDate, int percent);
 
     public void finishedQueue(UseCaseQueue ucQueue);
+
+
 
 
 

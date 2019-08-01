@@ -113,6 +113,19 @@ public class StandardMarkdownExecutor extends SimpleNopExecutor {
         templateDir = dir;
         LOGGER.info("template directory is " + templateDir.getAbsolutePath());
     }
+
+    @Override
+    public void startParameter() {
+        System.out.println("Parameter");
+    }
+
+    @Override
+    public void contentParacontent(String content) {
+        System.out.println(content);
+    }
+
+    
+
     
     
     

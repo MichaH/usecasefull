@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import net.michaelhofmann.usecasefull.definition.NoteStereotype;
 
 
@@ -32,6 +33,7 @@ public class UseCase {
     private Set<URI> seeAlsoLink = new HashSet<>();
     private Workflow workflow = new Workflow();
     private List<Parameter> parameters = new ArrayList<>();
+    private State state = new State();
 
     /*  ***********************************************************************
      *  C o n s t r u c t o r
@@ -53,9 +55,18 @@ public class UseCase {
     }
 
     /*  ***********************************************************************
+     *  Derived  G e t t e r
+     **************************************************************************/
+    
+    public String getActorsInline() {
+        return actors.stream()
+            .collect(Collectors.joining(", "));
+    }
+
+    /*  ***********************************************************************
      *  G e t t e r  und  S e t t e r
      **************************************************************************/
-
+    
     public String getSubtypePrefix() {
         return "gfall".equalsIgnoreCase(subtype) ? "gf" : "uc";
     }
@@ -138,5 +149,13 @@ public class UseCase {
 
     public void setParameters(List<Parameter> parameters) {
         this.parameters = parameters;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 }

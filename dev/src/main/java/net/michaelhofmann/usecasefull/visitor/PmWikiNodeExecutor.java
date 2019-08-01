@@ -7,6 +7,7 @@
  */
 
 package net.michaelhofmann.usecasefull.visitor;
+import java.util.Date;
 import net.michaelhofmann.usecasefull.definition.NoteStereotype;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
 import org.apache.commons.cli.CommandLine;
@@ -140,7 +141,10 @@ public class PmWikiNodeExecutor implements NodeCallback {
     @Override
     public void startParanote() {
     }
-    
+
+    @Override
+    public void startState(Date update, int percent) {
+    }
 
     
 
@@ -242,6 +246,13 @@ public class PmWikiNodeExecutor implements NodeCallback {
         content = normalize(content);
         System.out.println("** " + content);
     }
+
+    @Override
+    public void contentState(String toString, Date upDate, int percent) {
+        
+    }
+    
+    
 
     
     

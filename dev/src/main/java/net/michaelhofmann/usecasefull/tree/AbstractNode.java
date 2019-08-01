@@ -7,6 +7,9 @@
  */
 
 package net.michaelhofmann.usecasefull.tree;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
 import net.michaelhofmann.usecasefull.definition.Element;
 import java.util.Optional;
 import net.michaelhofmann.usecasefull.visitor.NodeCallback;
@@ -22,6 +25,8 @@ import org.xml.sax.SAXException;
 public abstract class AbstractNode implements Node {
 
     private static final Log LOGGER = LogFactory.getLog(AbstractNode.class);
+    
+    public static final DateFormat DATEFORM = NodeCallback.DATEFORM;
 
     final protected Element nodeType;
     final protected Optional<Attributes> optAttributes;
@@ -108,6 +113,35 @@ public abstract class AbstractNode implements Node {
         }
     }
 
+    public int getAttributeInt(String attributeName) {
+        if (optAttributes.isPresent()) {
+            try {
+                Attributes attr = optAttributes.get();
+                return Integer.parseInt(attr.getValue(attributeName));
+            } catch (NumberFormatException ex) {
+                return -1;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    public Date getAttributeDate(String attributeName) {
+        if (optAttributes.isPresent()) {
+            String dateStr = null;
+            try {
+                Attributes attr = optAttributes.get();
+                dateStr = attr.getValue(attributeName);
+                return DATEFORM.parse(dateStr);
+            } catch (ParseException ex) {
+                LOGGER.error("wrong date format " + dateStr, ex);
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
     public String getAttributeString(String attributeName) {
         if (optAttributes.isPresent()) {
             Attributes attr = optAttributes.get();
@@ -117,6 +151,10 @@ public abstract class AbstractNode implements Node {
         }
     }    
 
+    protected String toLine(String lines) {
+        return lines != null ? lines.replaceAll("\\s*\\n\\s*", " ") : "";
+    }
+    
     /*  ***********************************************************************
      *  G e t t e r  und  S e t t e r
      **************************************************************************/

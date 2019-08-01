@@ -7,6 +7,7 @@
  */
 
 package net.michaelhofmann.usecasefull.visitor;
+import java.util.Date;
 import net.michaelhofmann.usecasefull.definition.NoteStereotype;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
 import org.apache.commons.cli.CommandLine;
@@ -155,6 +156,15 @@ public class StdoutNodeExecutor implements NodeCallback {
         System.out.println("--> startParanote");
     }
 
+    @Override
+    public void startState(Date upDate, int percent) {
+        System.out.println(
+                String.format("--> StartState : upDate=%s, percent=%d",
+                NodeCallback.DATEFORM.format(upDate),
+                percent));
+    }
+
+    
 
 
     
@@ -226,6 +236,16 @@ public class StdoutNodeExecutor implements NodeCallback {
     public void contentParanote(String toString) {
     }
 
+    @Override
+    public void contentState(String text, Date upDate, int percent) {
+        System.out.println(
+                String.format("--> contentState : upDate=%s, percent=%d\n%s",
+                NodeCallback.DATEFORM.format(upDate),
+                percent,
+                text));
+    }
+
+    
 
     
     

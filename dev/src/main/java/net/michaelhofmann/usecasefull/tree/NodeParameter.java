@@ -31,6 +31,7 @@ public class NodeParameter extends AbstractLeaf {
     
     NodeParameter(AbstractNode father, NodeCallback nodeCallback, UseCase usecase) {
         super(Element.parameter, NULL_ATTRIBUTES, father, nodeCallback, usecase);
+        usecase.getParameters().add(parameter);
     }
 
     /*  ***********************************************************************

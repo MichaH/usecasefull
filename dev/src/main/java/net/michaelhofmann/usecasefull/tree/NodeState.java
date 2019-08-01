@@ -7,30 +7,32 @@
  */
 package net.michaelhofmann.usecasefull.tree;
 
+import java.util.Date;
+import java.util.Optional;
 import net.michaelhofmann.usecasefull.definition.Element;
-import net.michaelhofmann.usecasefull.usecase.Parameter;
+import net.michaelhofmann.usecasefull.usecase.State;
 import net.michaelhofmann.usecasefull.usecase.UseCase;
 import net.michaelhofmann.usecasefull.visitor.NodeCallback;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.xml.sax.Attributes;
 
 /**
  *
  * @author Michael.Hofmann@OrangeObjects.de
  */
-public class NodeParacontent extends AbstractLeaf {
+public class NodeState extends AbstractLeaf {
 
-    private static final Log LOGGER = LogFactory.getLog(NodeParacontent.class);
-    private final Parameter parameter;
+    private static final Log LOGGER = LogFactory.getLog(NodeState.class);
     
     /*  ***********************************************************************
      *  C o n s t r u c t o r
      **************************************************************************/
     
-    NodeParacontent(AbstractNode father, NodeCallback nodeCallback,
-            UseCase usecase, Parameter parameter) {
-        super(Element.paracontent, NULL_ATTRIBUTES, father, nodeCallback, usecase);
-        this.parameter = parameter;
+    NodeState(AbstractNode father, NodeCallback nodeCallback, 
+            Attributes attributes, UseCase usecase) {
+        super(Element.state, Optional.of(attributes), father, nodeCallback, 
+                usecase);
     }
 
     /*  ***********************************************************************
@@ -39,12 +41,21 @@ public class NodeParacontent extends AbstractLeaf {
     
     @Override
     protected void endElementExe() {
-        nodeCallback.contentParacontent(toLine(content.toString()));
-        parameter.setContent(toLine(content.toString()));
+        int percent = getAttributePercent();
+        Date upDate = getAttributeUpdate();
+        nodeCallback.contentState(content.toString(), upDate, percent);
+        usecase.setState(new State(content.toString(), upDate, percent));
     }
 
     /*  ***********************************************************************
      *  G e t t e r  und  S e t t e r
      **************************************************************************/
-    
+
+    public Date getAttributeUpdate() {
+        return getAttributeDate("upDate");
+    }
+
+    public int getAttributePercent() {
+        return getAttributeInt("percent");
+    }
 }

@@ -7,6 +7,7 @@
  */
 
 package net.michaelhofmann.usecasefull.visitor;
+import java.util.Date;
 import net.michaelhofmann.usecasefull.definition.NoteStereotype;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
 import org.apache.commons.cli.CommandLine;
@@ -146,8 +147,13 @@ public class SimpleNopExecutor implements NodeCallback {
 
     @Override
     public void startParanote() {
-        
     }
+
+    @Override
+    public void startState(Date update, int percent) {
+    }
+    
+    
 
     @Override
     public void contentSubtype(String content) {
@@ -210,9 +216,14 @@ public class SimpleNopExecutor implements NodeCallback {
 
     @Override
     public void contentParanote(String toString) {
-        
     }
 
+    @Override
+    public void contentState(String toString, Date upDate, int percent) {
+    }
+
+
+    
     @Override
     public void finishedQueue(UseCaseQueue ucQueue) {
         
