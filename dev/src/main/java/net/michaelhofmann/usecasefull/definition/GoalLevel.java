@@ -12,8 +12,9 @@ package net.michaelhofmann.usecasefull.definition;
  * @author Michael.Hofmann@OrangeObjects.de
  */
 public enum GoalLevel {
-    VeryHighSummary("++", "\u2601"),  // https://www.fileformat.info/info/unicode/char/2601/index.htm
-    Summary("+", ""), 	
+    Unknown("?", "&#9888;"),
+    VeryHighSummary("++", "&#9729;"),
+    Summary("+", "&#9992;"), 	
     UserGoal("!", ""), 	
     Subfunction("-", ""), 	
     TooLow("--", "");

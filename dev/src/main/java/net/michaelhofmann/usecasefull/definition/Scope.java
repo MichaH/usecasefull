@@ -13,9 +13,24 @@ package net.michaelhofmann.usecasefull.definition;
  */
 public enum Scope {
     
-    OrganizationBlackbox,
-    OrganizationWhitebox,
-    SystemBlackbox,
-    SystemWhitebox,
-    Component
+    Unknown("&#9888;"),
+    OrganizationBlackbox("&#9751;"),   // ok
+    OrganizationWhitebox("&#9750;"),   // ok
+    SystemBlackbox("&#9632;"),         // ok
+    SystemWhitebox("&#9744;"),         // ok
+    Component("&#9874;");            
+    
+    private final String symbol;
+    
+    Scope(String symbol) {
+        this.symbol = symbol;
+    }
+    
+    public String toSymbol() {
+        return symbol;
+    }
+    
+    public String getSymbol() {
+        return symbol;
+    }
 }

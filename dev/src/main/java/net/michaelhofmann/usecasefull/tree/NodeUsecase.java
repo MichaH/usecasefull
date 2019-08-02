@@ -46,9 +46,13 @@ public class NodeUsecase extends AbstractNode {
             throws SAXException {
         
         switch (element) {
-            case subtype:
-                nodeCallback.startSubtype();
-                return new NodeSubtype(this, nodeCallback, usecase);
+            case subtype: {
+                NodeSubtype node = new NodeSubtype(
+                        this, nodeCallback, attributes, usecase);
+                nodeCallback.startSubtype(
+                        node.getAttributeScope(), node.getAttributeGoalLevel());
+                return node;
+            }
             case ident:
                 nodeCallback.startIdent();
                 return new NodeIdent(this, nodeCallback, usecase);

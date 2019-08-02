@@ -8,7 +8,9 @@
 package net.michaelhofmann.usecasefull.visitor;
 
 import java.util.Date;
+import net.michaelhofmann.usecasefull.definition.GoalLevel;
 import net.michaelhofmann.usecasefull.definition.NoteStereotype;
+import net.michaelhofmann.usecasefull.definition.Scope;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
 import org.apache.commons.cli.CommandLine;
 
@@ -24,8 +26,8 @@ public interface NodeCallback {
 
     public void startUsecases();
     public void startUsecase();
+    public void startSubtype(Scope scope, GoalLevel goalLevel);
     public void startIdent();
-    public void startSubtype();
     public void startName();
     public void startActors();
     public void startActor();
@@ -46,7 +48,7 @@ public interface NodeCallback {
     public void startParanote();
     public void startState(Date update, int percent);
 
-    public void contentSubtype(String content);
+    public void contentSubtype(String toString, Scope scope, GoalLevel goalLevel);
     public void contentIdent(String content);
     public void contentName(String content);
     public void contentActor(String content);
@@ -62,12 +64,4 @@ public interface NodeCallback {
     public void contentState(String toString, Date upDate, int percent);
 
     public void finishedQueue(UseCaseQueue ucQueue);
-
-
-
-
-
-
-
-
 }

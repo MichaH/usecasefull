@@ -8,7 +8,9 @@
 
 package net.michaelhofmann.usecasefull.visitor;
 import java.util.Date;
+import net.michaelhofmann.usecasefull.definition.GoalLevel;
 import net.michaelhofmann.usecasefull.definition.NoteStereotype;
+import net.michaelhofmann.usecasefull.definition.Scope;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.logging.Log;
@@ -54,12 +56,10 @@ public class SimpleNopExecutor implements NodeCallback {
 
     @Override
     public void startIdent() {
-        
     }
 
     @Override
-    public void startSubtype() {
-        
+    public void startSubtype(Scope scope, GoalLevel goalLevel) {
     }
 
     @Override
@@ -152,12 +152,9 @@ public class SimpleNopExecutor implements NodeCallback {
     @Override
     public void startState(Date update, int percent) {
     }
-    
-    
 
     @Override
-    public void contentSubtype(String content) {
-        
+    public void contentSubtype(String typeName, Scope scope, GoalLevel goalLevel) {
     }
 
     @Override

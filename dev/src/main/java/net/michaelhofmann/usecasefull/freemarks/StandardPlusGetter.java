@@ -41,6 +41,15 @@ final public class StandardPlusGetter implements AdditionalGetter {
     /*  ***********************************************************************
      *  G e t t e r  und  S e t t e r
      **************************************************************************/
+    
+    // subtype
+    
+    public String getScopeAsSymbol() {
+        return usecase.getSubtype().getScope() == null ? 
+                "" : usecase.getSubtype().getScope().toSymbol();
+    }
+    
+    // state
 
     public static String getProgressBarWithLabel(int percent) {
         // normalize

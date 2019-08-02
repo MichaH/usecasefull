@@ -1,6 +1,6 @@
 
 ---
-${subtype.typeName}
+${subtype.typeName} ${freemarks.scopeAsSymbol} 
 ### ${ident} | ${name}
 ${description.summary}
 

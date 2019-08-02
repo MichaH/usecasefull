@@ -9,7 +9,9 @@
 package net.michaelhofmann.usecasefull.visitor;
 import java.util.Date;
 import net.michaelhofmann.usecasefull.definition.Const;
+import net.michaelhofmann.usecasefull.definition.GoalLevel;
 import net.michaelhofmann.usecasefull.definition.NoteStereotype;
+import net.michaelhofmann.usecasefull.definition.Scope;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.logging.Log;
@@ -63,8 +65,11 @@ public class StdoutNodeExecutor implements NodeCallback {
     }
 
     @Override
-    public void startSubtype() {
-        System.out.println("--> startSubtype");
+    public void startSubtype(Scope scope, GoalLevel goalLevel) {
+        System.out.println(
+                String.format("--> startSubtype : scope=%s, goalLevel=%s",
+                scope.name(),
+                goalLevel.name()));
     }
 
     @Override
@@ -177,8 +182,12 @@ public class StdoutNodeExecutor implements NodeCallback {
     }
 
     @Override
-    public void contentSubtype(String content) {
-        System.out.println("    subtype  = " + content);
+    public void contentSubtype(String typeName, Scope scope, GoalLevel goalLevel) {
+        System.out.println(
+                String.format("--> contentSubtype : scope=%s, goalLevel=%s\n%s",
+                scope.name(),
+                goalLevel.name(),
+                typeName));
     }
 
     @Override

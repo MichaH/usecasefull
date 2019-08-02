@@ -10,8 +10,9 @@ package net.michaelhofmann.usecasefull.visitor;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import net.michaelhofmann.usecasefull.definition.Const;
+import net.michaelhofmann.usecasefull.definition.GoalLevel;
 import net.michaelhofmann.usecasefull.definition.NoteStereotype;
+import net.michaelhofmann.usecasefull.definition.Scope;
 import net.michaelhofmann.usecasefull.freemarks.StandardPlusGetter;
 import net.michaelhofmann.usecasefull.usecase.UseCase;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
@@ -28,7 +29,7 @@ public class PmWikiNodeExecutor implements NodeCallback {
 
     private static final Log LOGGER = LogFactory.getLog(PmWikiNodeExecutor.class);
     
-    public static final DateFormat DATEFORM = new SimpleDateFormat("dd.MM.yyyy");            
+    public static final DateFormat DATEFORM = new SimpleDateFormat("dd.MM.yyyy");       
 
     /*  ***********************************************************************
      *  C o n s t r u c t o r
@@ -70,7 +71,7 @@ public class PmWikiNodeExecutor implements NodeCallback {
     }
 
     @Override
-    public void startSubtype() {
+    public void startSubtype(Scope scope, GoalLevel goalLevel) {
     }
 
     @Override
@@ -167,8 +168,8 @@ public class PmWikiNodeExecutor implements NodeCallback {
     }
 
     @Override
-    public void contentSubtype(String content) {
-        System.out.print(content);
+    public void contentSubtype(String typeName, Scope scope, GoalLevel goalLevel) {
+        System.out.print(typeName);
     }
 
     @Override
