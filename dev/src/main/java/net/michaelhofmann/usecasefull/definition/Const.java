@@ -17,5 +17,6 @@ import java.text.SimpleDateFormat;
  */
 public class Const {
     
-    public static final DateFormat DATEFORM = new SimpleDateFormat("yyyy-MM-dd");            
+    public static final String DATEFORMSTR = "yyyy-MM-dd";
+    public static final DateFormat DATEFORM = new SimpleDateFormat(DATEFORMSTR);            
 }

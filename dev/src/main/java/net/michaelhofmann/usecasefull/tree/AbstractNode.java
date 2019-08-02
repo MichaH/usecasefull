@@ -14,6 +14,7 @@ import net.michaelhofmann.usecasefull.definition.Element;
 import java.util.Optional;
 import net.michaelhofmann.usecasefull.definition.Const;
 import net.michaelhofmann.usecasefull.visitor.NodeCallback;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.Attributes;
@@ -131,6 +132,13 @@ public abstract class AbstractNode implements Node {
             try {
                 Attributes attr = optAttributes.get();
                 dateStr = attr.getValue(attributeName);
+                if (StringUtils.isBlank(dateStr)) {
+                    return null;
+                }
+                // the content could be the documentation itself YYYY-MM-DD
+                if (Const.DATEFORMSTR.equalsIgnoreCase(dateStr)) {
+                    return null;
+                }
                 return Const.DATEFORM.parse(dateStr);
             } catch (ParseException ex) {
                 LOGGER.error("wrong date format " + dateStr, ex);

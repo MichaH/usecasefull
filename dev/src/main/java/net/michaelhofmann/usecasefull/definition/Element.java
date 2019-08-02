@@ -13,7 +13,7 @@ package net.michaelhofmann.usecasefull.definition;
  */
 public enum Element {
 
-    root, notes, loop, paracontent, paranote, pi,
+    root, notes, loop, paracontent, paranote, pi, changelog,
     usecases, usecase, subtype, ident, name, description, summary, detailed,
     variation, link, actors, actor, input, parameter, content, note, workflow, 
     step, stepextension, condition, additionalinfo, code, seealso, usecaseref, 

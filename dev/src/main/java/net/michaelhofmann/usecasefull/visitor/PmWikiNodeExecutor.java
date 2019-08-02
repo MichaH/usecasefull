@@ -7,8 +7,13 @@
  */
 
 package net.michaelhofmann.usecasefull.visitor;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import net.michaelhofmann.usecasefull.definition.Const;
 import net.michaelhofmann.usecasefull.definition.NoteStereotype;
+import net.michaelhofmann.usecasefull.freemarks.StandardPlusGetter;
+import net.michaelhofmann.usecasefull.usecase.UseCase;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +27,8 @@ import org.apache.commons.logging.LogFactory;
 public class PmWikiNodeExecutor implements NodeCallback {
 
     private static final Log LOGGER = LogFactory.getLog(PmWikiNodeExecutor.class);
+    
+    public static final DateFormat DATEFORM = new SimpleDateFormat("dd.MM.yyyy");            
 
     /*  ***********************************************************************
      *  C o n s t r u c t o r
@@ -249,12 +256,35 @@ public class PmWikiNodeExecutor implements NodeCallback {
 
     @Override
     public void contentState(String toString, Date upDate, int percent) {
-        
+        StringBuilder sb = new StringBuilder();
+        if (percent > 0) {
+            sb.append("\n[-'''State''' : ");
+            if (upDate != null) {
+                sb.append("(").append(DATEFORM.format(upDate)).append(") ");
+            }
+            sb.append(progressColor(percent));
+            sb.append(StandardPlusGetter.getProgressBarWithLabel(percent));
+            sb.append(" %%");
+            sb.append("-]");
+        }
+        if (sb.length() > 0) {
+            System.out.println(sb.toString());
+        }
     }
     
-    
-
-    
+    private String progressColor(int percent) {
+        if (percent > 99) {
+            return "%green%";
+        } else if (percent > 74) {
+            return "%blue%";
+        } else if (percent > 10) {
+            return "%orange%";
+        } else if (percent > 0) {
+            return "%red%";
+        } else {
+            return "%black%";
+        }
+    }
     
     private String normalize(String lines) {
         return lines != null ? lines.replaceAll("\\s*\\n\\s*", " ") : "";
@@ -262,7 +292,9 @@ public class PmWikiNodeExecutor implements NodeCallback {
 
     @Override
     public void finishedQueue(UseCaseQueue ucQueue) {
-        String formatI = "*[[#uc%s|%s%s]], %s";
+        System.out.println("!!!! nach Ident-Nummer sortiert");
+        System.out.println("|| border=0");
+        String formatI = "||[[#uc%s|%s%s]] || ||%s ||%s ||";
         ucQueue.stream()
                 .filter(u -> StringUtils.isNotBlank(u.getName()))
                 .filter(u -> StringUtils.isNotBlank(u.getIdent()))
@@ -272,10 +304,13 @@ public class PmWikiNodeExecutor implements NodeCallback {
                             u.getIdent(),
                             u.getSubtypePrefix(),
                             u.getIdent(),
-                            u.getName()));
+                            u.getName(),
+                            progressBar4Listing(u)));
         });
         
-        String formatN = "*[[#uc%s|%s]], %s%s";
+        System.out.println("!!!! nach Name sortiert");
+        System.out.println("|| border=0");
+        String formatN = "||[[#uc%s|%s]] || ||%s%s ||%s ||";
         ucQueue.stream()
                 .filter(u -> StringUtils.isNotBlank(u.getName()))
                 .filter(u -> StringUtils.isNotBlank(u.getIdent()))
@@ -285,9 +320,18 @@ public class PmWikiNodeExecutor implements NodeCallback {
                             u.getIdent(),
                             u.getName(),
                             u.getSubtypePrefix(),
-                            u.getIdent()));
+                            u.getIdent(),
+                            progressBar4Listing(u)));
         });
-        
+    }
+    
+    private String progressBar4Listing(UseCase u) {
+        if (u.getState().getPercent() < 1) {
+            return "";
+        } else {
+            return "[-" + progressColor(u.getState().getPercent())
+                    + StandardPlusGetter.getProgressBarWithLabel(u.getState().getPercent()) + "-]";
+        }
     }
 
 }

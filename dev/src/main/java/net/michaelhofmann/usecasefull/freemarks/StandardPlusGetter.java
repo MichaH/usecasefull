@@ -38,32 +38,11 @@ final public class StandardPlusGetter implements AdditionalGetter {
         this.usecase = usecase;
     }
     
-    /*
-**State** (2019-08-02) - 0%  
-**State** (2019-08-02) - 10%
-
-**State** (2019-08-02) <span style="color:red">## 10%</span>  
-**State** (2019-08-02) <span style="color:orange">###### 30%</span>  
-**State** (2019-08-02) <span style="color:blue">########### 55%</span>  
-**State** (2019-08-02) <span style="color:green">#################### 100%</span>  
-
-**State** (2019-08-02) <span style="color:grey">## 10%</span>  
-**State** (2019-08-02) <span style="color:grey">###### 30%</span>  
-**State** (2019-08-02) <span style="color:grey">########### 55%</span>  
-**State** (2019-08-02) <span style="color:grey">#################### 100%</span>  
-
-**State** (2019-08-02) <span style="color:grey">##------------------ 10%</span>  
-**State** (2019-08-02) <span style="color:grey">###### 30%</span>  
-**State** (2019-08-02) <span style="color:grey">########### 55%</span>  
-**State** (2019-08-02) <span style="color:grey">#################### 100%</span>     
-    */
-
     /*  ***********************************************************************
      *  G e t t e r  und  S e t t e r
      **************************************************************************/
 
-    public String getProgressBarWithLabel() {
-        int percent = usecase.getState().getPercent();
+    public static String getProgressBarWithLabel(int percent) {
         // normalize
         percent = percent < 0 ? 0 : percent;
         percent = percent > 100 ? 100 : percent;
@@ -76,5 +55,9 @@ final public class StandardPlusGetter implements AdditionalGetter {
                 int repeat = percent / 2;
                 return StringUtils.repeat("#", repeat) + " " + percent + "%";
         }
+    }
+
+    public String getProgressBarWithLabel() {
+        return getProgressBarWithLabel(usecase.getState().getPercent());
     }
 }
