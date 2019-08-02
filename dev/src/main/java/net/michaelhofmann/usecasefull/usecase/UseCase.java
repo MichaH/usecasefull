@@ -8,16 +8,16 @@
 
 package net.michaelhofmann.usecasefull.usecase;
 
-import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import net.michaelhofmann.usecasefull.definition.NoteStereotype;
 import net.michaelhofmann.usecasefull.freemarks.AdditionalGetter;
 import net.michaelhofmann.usecasefull.freemarks.StandardPlusGetter;
-
 
 /**
  *
@@ -25,19 +25,23 @@ import net.michaelhofmann.usecasefull.freemarks.StandardPlusGetter;
  */
 public class UseCase {
     
-    private String subtype;
+    private AdditionalGetter freemarks = new StandardPlusGetter();
+
+    private Subtype subtype = new Subtype();
     private String ident;
     private String name;
-    private Set<String> actors = new HashSet<>();
     private Description description = new Description();
-    private List<Note> notes = new ArrayList<>();
-    private Set<String> seeAlsoRef = new HashSet<>();
-    private Set<URI> seeAlsoLink = new HashSet<>();
-    private Workflow workflow = new Workflow();
+    private Set<Actor> actors = new HashSet<>();
     private List<Parameter> parameters = new ArrayList<>();
+    private List<Note> notes = new ArrayList<>();
+    private Workflow workflow = new Workflow();
+    private Set<Reference> includes = new HashSet<>();
+    private Map<Integer, AdditionalInfo> additionalInfos = new HashMap<>();
+    private Set<Reference> seeAlsoSet = new HashSet<>();
+    private History history = new History();
     private State state = new State();
-    
-    private AdditionalGetter freemarks = new StandardPlusGetter();
+    private Set<String> tags = new HashSet<>();
+    private List<ProcessInstruction> processInstructions = new ArrayList<>();
 
     /*  ***********************************************************************
      *  C o n s t r u c t o r
@@ -65,7 +69,8 @@ public class UseCase {
     
     public String getActorsInline() {
         return actors.stream()
-            .collect(Collectors.joining(", "));
+                .map(a -> a.getName())
+                .collect(Collectors.joining(", "));
     }
 
     /*  ***********************************************************************
@@ -77,16 +82,9 @@ public class UseCase {
     }
     
     public String getSubtypePrefix() {
-        return "gfall".equalsIgnoreCase(subtype) ? "gf" : "uc";
+        return "gfall".equalsIgnoreCase(subtype.getTypeName()) ? "gf" : "uc";
     }
     
-    public String getSubtype() {
-        return subtype;
-    }
-
-    public void setSubtype(String subtype) {
-        this.subtype = subtype;
-    }
 
     public String getName() {
         return name;
@@ -112,36 +110,12 @@ public class UseCase {
         this.description = description;
     }
 
-    public Set<String> getActors() {
-        return actors;
-    }
-
-    public void setActors(Set<String> actors) {
-        this.actors = actors;
-    }
-
     public List<Note> getNotes() {
         return notes;
     }
 
     public void setNotes(List<Note> notes) {
         this.notes = notes;
-    }
-
-    public Set<String> getSeeAlsoRef() {
-        return seeAlsoRef;
-    }
-
-    public void setSeeAlsoRef(Set<String> seeAlsoRef) {
-        this.seeAlsoRef = seeAlsoRef;
-    }
-
-    public Set<URI> getSeeAlsoLink() {
-        return seeAlsoLink;
-    }
-
-    public void setSeeAlsoLink(Set<URI> seeAlsoLink) {
-        this.seeAlsoLink = seeAlsoLink;
     }
 
     public Workflow getWorkflow() {
@@ -166,5 +140,68 @@ public class UseCase {
 
     public void setState(State state) {
         this.state = state;
+    }
+    public Subtype getSubtype() {
+        return subtype;
+    }
+
+    public void setSubtype(Subtype subtype) {
+        this.subtype = subtype;
+    }
+    
+    public Set<Actor> getActors() {
+        return actors;
+    }
+    
+    public void setActors(Set<Actor> actors) {
+        this.actors = actors;
+    }
+    
+    public Set<Reference> getIncludes() {
+        return includes;
+    }
+
+    public void setIncludes(Set<Reference> includes) {
+        this.includes = includes;
+    }
+    
+    public Map<Integer, AdditionalInfo> getAdditionalInfos() {
+        return additionalInfos;
+    }
+
+    public void setAdditionalInfos(Map<Integer, AdditionalInfo> additionalInfos) {
+        this.additionalInfos = additionalInfos;
+    }
+    
+    public Set<Reference> getSeeAlsoSet() {
+        return seeAlsoSet;
+    }
+
+    public void setSeeAlsoSet(Set<Reference> seeAlsoSet) {
+        this.seeAlsoSet = seeAlsoSet;
+    }
+    
+    public History getHistory() {
+        return history;
+    }
+
+    public void setHistory(History history) {
+        this.history = history;
+    }
+    
+    public Set<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
+    }
+    
+    public List<ProcessInstruction> getProcessInstructions() {
+        return processInstructions;
+    }
+
+    public void setProcessInstructions(List<ProcessInstruction> processInstructions) {
+        this.processInstructions = processInstructions;
     }
 }

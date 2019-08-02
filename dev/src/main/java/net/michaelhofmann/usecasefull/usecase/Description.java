@@ -8,7 +8,9 @@
 
 package net.michaelhofmann.usecasefull.usecase;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -23,7 +25,7 @@ public class Description {
     private String summary;
     private String detailed;
     private Map<Long, String> variations = new HashMap<>();
-    private String link;
+    private Set<Link> links = new HashSet<>();    
         
     /*  ***********************************************************************
      *  C o n s t r u c t o r
@@ -69,11 +71,11 @@ public class Description {
         return variations.put(num, content);
     }
 
-    public String getLink() {
-        return link;
+    public Set<Link> getLinks() {
+        return links;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setLinks(Set<Link> links) {
+        this.links = links;
     }
 }

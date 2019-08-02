@@ -8,6 +8,7 @@
 package net.michaelhofmann.usecasefull.tree;
 
 import net.michaelhofmann.usecasefull.definition.Element;
+import net.michaelhofmann.usecasefull.usecase.Actor;
 import net.michaelhofmann.usecasefull.usecase.UseCase;
 import net.michaelhofmann.usecasefull.visitor.NodeCallback;
 import org.apache.commons.logging.Log;
@@ -37,7 +38,7 @@ public class NodeActor extends AbstractLeaf {
     @Override
     protected void endElementExe() {
         nodeCallback.contentActor(content.toString());
-        usecase.getActors().add(content.toString());
+        usecase.getActors().add(new Actor(content.toString()));
     }
 
     /*  ***********************************************************************

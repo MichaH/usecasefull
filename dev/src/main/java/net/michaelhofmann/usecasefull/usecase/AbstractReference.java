@@ -5,11 +5,8 @@
  *  http://www.OrangeObjects.de
  * 
  */
-package net.michaelhofmann.usecasefull.tree;
 
-import net.michaelhofmann.usecasefull.definition.Element;
-import net.michaelhofmann.usecasefull.usecase.UseCase;
-import net.michaelhofmann.usecasefull.visitor.NodeCallback;
+package net.michaelhofmann.usecasefull.usecase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -17,29 +14,29 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Michael.Hofmann@OrangeObjects.de
  */
-public class NodeSubtype extends AbstractLeaf {
+public class AbstractReference extends AbstractContainer implements Reference {
 
-    private static final Log LOGGER = LogFactory.getLog(NodeSubtype.class);
-    
+    private static final Log LOGGER = LogFactory.getLog(AbstractReference.class);
+
     /*  ***********************************************************************
      *  C o n s t r u c t o r
      **************************************************************************/
-    
-    NodeSubtype(AbstractNode father, NodeCallback nodeCallback, UseCase usecase) {
-        super(Element.subtype, NULL_ATTRIBUTES, father, nodeCallback, usecase);
-    }
 
+    public AbstractReference() {
+    }
+    
     /*  ***********************************************************************
      *  M i s c
      **************************************************************************/
-    
-    @Override
-    protected void endElementExe() {
-        nodeCallback.contentSubtype(content.toString());
-        usecase.getSubtype().setTypeName(content.toString());
-    }
 
+    
     /*  ***********************************************************************
-     *  G e t t e r  und  S e t t e r
+     *  Additional  G e t t e r 
      **************************************************************************/
+
+    
+    /*  ***********************************************************************
+     *  G e t t e r  and  S e t t e r
+     **************************************************************************/
+
 }
