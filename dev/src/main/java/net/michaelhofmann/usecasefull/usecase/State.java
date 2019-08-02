@@ -8,6 +8,7 @@
 
 package net.michaelhofmann.usecasefull.usecase;
 import java.util.Date;
+import net.michaelhofmann.usecasefull.definition.Const;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -15,7 +16,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Michael.Hofmann@OrangeObjects.de
  */
-public class State {
+public class State extends AbstractContainer {
 
     private static final Log LOGGER = LogFactory.getLog(State.class);
     
@@ -40,9 +41,20 @@ public class State {
      *  M i s c
      **************************************************************************/
 
-
     /*  ***********************************************************************
-     *  G e t t e r  und  S e t t e r
+     *  Additional  G e t t e r 
+     **************************************************************************/
+    
+    public String getFormatedUpdate() {
+        return upDate != null ? Const.DATEFORM.format(upDate) : "";
+    }
+
+    public String getTextN2E() {
+        return nullToEmpty(text);
+    }
+    
+    /*  ***********************************************************************
+     *  G e t t e r  and  S e t t e r
      **************************************************************************/
 
     public String getText() {

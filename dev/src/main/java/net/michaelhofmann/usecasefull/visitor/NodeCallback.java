@@ -7,8 +7,6 @@
  */
 package net.michaelhofmann.usecasefull.visitor;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import net.michaelhofmann.usecasefull.definition.NoteStereotype;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
@@ -19,9 +17,6 @@ import org.apache.commons.cli.CommandLine;
  * @author Michael.Hofmann@OrangeObjects.de
  */
 public interface NodeCallback {
-    
-    public static final DateFormat DATEFORM
-            = new SimpleDateFormat("yyyy-MM-dd");
     
     public void init(CommandLine cmd) throws Exception;
 

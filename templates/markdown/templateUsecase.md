@@ -16,3 +16,5 @@ ${parameter.note}
 	</#list>
 </#if>	
 
+**state** : (${state.formatedUpdate}) ${freemarks.progressBarWithLabel}  ${state.text}  
+

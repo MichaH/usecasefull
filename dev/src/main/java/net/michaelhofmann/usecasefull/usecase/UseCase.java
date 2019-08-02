@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import net.michaelhofmann.usecasefull.definition.NoteStereotype;
+import net.michaelhofmann.usecasefull.freemarks.AdditionalGetter;
+import net.michaelhofmann.usecasefull.freemarks.StandardPlusGetter;
 
 
 /**
@@ -34,12 +36,15 @@ public class UseCase {
     private Workflow workflow = new Workflow();
     private List<Parameter> parameters = new ArrayList<>();
     private State state = new State();
+    
+    private AdditionalGetter freemarks = new StandardPlusGetter();
 
     /*  ***********************************************************************
      *  C o n s t r u c t o r
      **************************************************************************/
 
     public UseCase() {
+        freemarks.init(this);
     }
 
     /*  ***********************************************************************
@@ -66,6 +71,10 @@ public class UseCase {
     /*  ***********************************************************************
      *  G e t t e r  und  S e t t e r
      **************************************************************************/
+
+    public AdditionalGetter getFreemarks() {
+        return freemarks;
+    }
     
     public String getSubtypePrefix() {
         return "gfall".equalsIgnoreCase(subtype) ? "gf" : "uc";

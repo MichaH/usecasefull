@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.util.Date;
 import net.michaelhofmann.usecasefull.definition.Element;
 import java.util.Optional;
+import net.michaelhofmann.usecasefull.definition.Const;
 import net.michaelhofmann.usecasefull.visitor.NodeCallback;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,8 +27,6 @@ public abstract class AbstractNode implements Node {
 
     private static final Log LOGGER = LogFactory.getLog(AbstractNode.class);
     
-    public static final DateFormat DATEFORM = NodeCallback.DATEFORM;
-
     final protected Element nodeType;
     final protected Optional<Attributes> optAttributes;
     final protected Node father;
@@ -132,7 +131,7 @@ public abstract class AbstractNode implements Node {
             try {
                 Attributes attr = optAttributes.get();
                 dateStr = attr.getValue(attributeName);
-                return DATEFORM.parse(dateStr);
+                return Const.DATEFORM.parse(dateStr);
             } catch (ParseException ex) {
                 LOGGER.error("wrong date format " + dateStr, ex);
                 return null;
