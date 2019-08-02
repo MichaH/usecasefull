@@ -258,7 +258,7 @@ public class PmWikiNodeExecutor implements NodeCallback {
     public void contentState(String toString, Date upDate, int percent) {
         StringBuilder sb = new StringBuilder();
         if (percent > 0) {
-            sb.append("\n[-'''State''' : ");
+            sb.append("\n[-'''Status''' : ");
             if (upDate != null) {
                 sb.append("(").append(DATEFORM.format(upDate)).append(") ");
             }

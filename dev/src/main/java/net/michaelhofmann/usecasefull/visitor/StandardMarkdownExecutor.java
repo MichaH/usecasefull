@@ -37,7 +37,6 @@ public class StandardMarkdownExecutor extends SimpleNopExecutor {
     private static final Log LOGGER = LogFactory.getLog(StandardMarkdownExecutor.class);
 
     private final String CHARSET = "UTF-8";
-    
     private final Charset charset;
     
     private File templateDir ;
@@ -60,21 +59,43 @@ public class StandardMarkdownExecutor extends SimpleNopExecutor {
     public void init(CommandLine cmd) throws IOException {
         equipTemplateDir(cmd);
         equipOutputfileName(cmd);
+        equipFreemarker();
+    }
 
-        
-        
-        // Create your Configuration instance, and specify if up to what 
-        // FreeMarker version (here 2.3.28) do you want to apply the fixes that 
-        // are not 100% backward-compatible. See the Configuration JavaDoc for 
+
+    @Override
+    public void finishedQueue(UseCaseQueue ucQueue) {
+        try (BufferedWriter out = Files.newBufferedWriter(outputFilePath, charset)) {
+            ucQueue.stream()
+                    .filter(u -> StringUtils.isNotBlank(u.getName()))
+                    .sorted((u1, u2) -> u1.getIdent().compareTo(u2.getIdent()))
+                    .forEach(u -> {
+                        processUseCase(u, out);
+            });
+        } catch (IOException ex) {
+            LOGGER.error("IO-Error", ex);
+        }
+    }
+    
+    private void processUseCase(UseCase useCase, Writer out) {
+        try {
+            templateUsecase.process(useCase, out);
+        } catch (TemplateException | IOException ex) {
+            LOGGER.error("process error", ex);
+        }
+    }
+    
+    private void equipFreemarker() throws IOException {
+        // Create your Configuration instance, and specify if up to what
+        // FreeMarker version (here 2.3.28) do you want to apply the fixes that
+        // are not 100% backward-compatible. See the Configuration JavaDoc for
         // details.
         Configuration cfg = new Configuration(new Version("2.3.28"));
-        
         cfg.setClassForTemplateLoading(this.getClass(), "");
         // Specify the source where the template files come from.
         cfg.setDirectoryForTemplateLoading(templateDir);
-
         // Set the preferred charset template files are stored in. UTF-8 is
-        // a good choice in most applications.     
+        // a good choice in most applications.
         cfg.setDefaultEncoding(CHARSET);        
         // Sets how errors will appear.
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
@@ -84,10 +105,7 @@ public class StandardMarkdownExecutor extends SimpleNopExecutor {
         // Wrap unchecked exceptions thrown during template processing into 
         // TemplateException-s.
         cfg.setWrapUncheckedExceptions(true);
-        
         templateUsecase = cfg.getTemplate("templateUsecase.md");
-        
-         
     }
 
     private void equipOutputfileName(CommandLine cmd) throws IOException {
@@ -114,45 +132,6 @@ public class StandardMarkdownExecutor extends SimpleNopExecutor {
         LOGGER.info("template directory is " + templateDir.getAbsolutePath());
     }
 
-    @Override
-    public void startParameter() {
-        System.out.println("Parameter");
-    }
-
-    @Override
-    public void contentParacontent(String content) {
-        System.out.println(content);
-    }
-
-    
-
-    
-    
-    
-    @Override
-    public void finishedQueue(UseCaseQueue ucQueue) {
-        
-        
-        try (BufferedWriter out = Files.newBufferedWriter(outputFilePath, charset)) {
-            ucQueue.stream()
-                    .filter(u -> StringUtils.isNotBlank(u.getName()))
-                    .sorted((u1, u2) -> u1.getIdent().compareTo(u2.getIdent()))
-                    .forEach(u -> {
-                        processUseCase(u, out);
-            });
-        } catch (IOException ex) {
-            LOGGER.error("IO-Error", ex);
-        }
-    }
-    
-    private void processUseCase(UseCase useCase, Writer out) {
-        try {
-            templateUsecase.process(useCase, out);
-        } catch (TemplateException | IOException ex) {
-            LOGGER.error("process error", ex);
-        }
-    }
-    
     /*  ***********************************************************************
      *  G e t t e r  und  S e t t e r
      **************************************************************************/
