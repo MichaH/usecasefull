@@ -9,6 +9,7 @@
 package net.michaelhofmann.usecasefull.tree;
 import net.michaelhofmann.usecasefull.definition.Element;
 import java.util.Optional;
+import net.michaelhofmann.usecasefull.usecase.AdditionalInfo;
 import net.michaelhofmann.usecasefull.usecase.UseCase;
 import net.michaelhofmann.usecasefull.visitor.NodeCallback;
 import org.apache.commons.logging.Log;
@@ -23,6 +24,7 @@ import org.xml.sax.SAXException;
 public class NodeAdditionalinfo extends AbstractLeaf {
 
     private static final Log LOGGER = LogFactory.getLog(NodeAdditionalinfo.class);
+    private final AdditionalInfo additionalInfo = new AdditionalInfo();
     
     /*  ***********************************************************************
      *  C o n s t r u c t o r
@@ -30,7 +32,9 @@ public class NodeAdditionalinfo extends AbstractLeaf {
 
     NodeAdditionalinfo(AbstractNode father, NodeCallback nodeCallback, 
             Attributes attributes, UseCase usecase) {
-        super(Element.additionalinfo, Optional.of(attributes), father, nodeCallback, usecase);
+        super(Element.additionalinfo, Optional.of(attributes), father, 
+                nodeCallback, usecase);
+        usecase.getAdditionalInfos().put(getAttributeNum(), additionalInfo);
     }
 
     /*  ***********************************************************************
@@ -43,12 +47,20 @@ public class NodeAdditionalinfo extends AbstractLeaf {
         
         switch (element) {
             case content: {
-                NodeContent node = new NodeContent(this, nodeCallback, usecase);
+                NodeContent node = new NodeContent(
+                        this, nodeCallback, usecase, additionalInfo);
                 nodeCallback.startContent();
                 return node;
             }
+            case note: {
+                NodeAdditionalNote node = new NodeAdditionalNote(
+                        this, nodeCallback, usecase, additionalInfo);
+                nodeCallback.startAdditionalNote();
+                return node;
+            }
             case code: {
-                NodeCode node = new NodeCode(this, nodeCallback, attributes, usecase);
+                NodeCode node = new NodeCode(
+                        this, nodeCallback, attributes, usecase, additionalInfo);
                 nodeCallback.startCode(node.getAttributeLayoutSpaces());
                 return node;
             }
@@ -60,7 +72,7 @@ public class NodeAdditionalinfo extends AbstractLeaf {
      *  G e t t e r  und  S e t t e r
      **************************************************************************/
     
-    public long getAttributeNum() {
-        return getAttributeLong("num");
+    final public int getAttributeNum() {
+        return getAttributeInt("num");
     }
 }

@@ -144,6 +144,11 @@ public class StdoutNodeExecutor implements NodeCallback {
     }
 
     @Override
+    public void startAdditionalNote() {
+        System.out.println("--> startAdditionalNote");
+    }
+
+    @Override
     public void startCode(String layoutSpaces) {
         System.out.println("--> startAdditionalinfo, layoutSpaces=" + layoutSpaces);
     }
@@ -237,6 +242,13 @@ public class StdoutNodeExecutor implements NodeCallback {
     @Override
     public void contentContent(String content) {
         System.out.println("    content  = " + content);
+    }
+
+    @Override
+    public void contentAdditionalNote(String content) {
+        System.out.println(
+                String.format("--> contentAdditionalNote :\n%s",
+                content));
     }
 
     @Override

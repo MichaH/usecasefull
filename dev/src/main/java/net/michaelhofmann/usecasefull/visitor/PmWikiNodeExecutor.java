@@ -134,6 +134,10 @@ public class PmWikiNodeExecutor implements NodeCallback {
     }
 
     @Override
+    public void startAdditionalNote() {
+    }
+    
+    @Override
     public void startCode(String layoutSpaces) {
     }
     
@@ -243,6 +247,10 @@ public class PmWikiNodeExecutor implements NodeCallback {
         System.out.println(content + " \\\\");
     }
 
+    @Override
+    public void contentAdditionalNote(String content) {
+    }
+    
     @Override
     public void contentCode(String content, String layoutSpaces) {
         System.out.println("   " + content);

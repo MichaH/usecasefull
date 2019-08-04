@@ -130,6 +130,10 @@ public class SimpleNopExecutor implements NodeCallback {
     }
 
     @Override
+    public void startAdditionalNote() {
+    }
+
+    @Override
     public void startCode(String layoutSpaces) {
         
     }
@@ -206,6 +210,10 @@ public class SimpleNopExecutor implements NodeCallback {
     }
 
     @Override
+    public void contentAdditionalNote(String content) {
+    }
+
+    @Override
     public void contentCode(String content, String layoutSpaces) {
         
     }
@@ -233,4 +241,5 @@ public class SimpleNopExecutor implements NodeCallback {
     /*  ***********************************************************************
      *  G e t t e r  und  S e t t e r
      **************************************************************************/
+
 }
