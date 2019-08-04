@@ -50,6 +50,12 @@ public class StdoutNodeExecutor implements NodeCallback {
     }
 
     @Override
+    public void endDocument() {
+        System.out.println(
+                String.format("--> endDocument"));        
+    }
+
+    @Override
     public void startUsecases() {
         System.out.println("--> startUsecases");
     }
@@ -165,7 +171,7 @@ public class StdoutNodeExecutor implements NodeCallback {
     @Override
     public void startState(Date upDate, int percent) {
         System.out.println(
-                String.format("--> StartState : upDate=%s, percent=%d",
+                String.format("--> startState : upDate=%s, percent=%d",
                 Const.DATEFORM.format(upDate),
                 percent));
     }

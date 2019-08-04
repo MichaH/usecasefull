@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
 import java.util.Properties;
+import net.michaelhofmann.usecasefull.util.Jobinfo;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
@@ -77,6 +78,7 @@ public class Transformer {
             return false;
         }
         inputFile = new File(fileName);
+        Jobinfo.getInstance().setInputFile(inputFile);   // only info
         
         new Traversor(cmd, inputFile).start();
         return true;

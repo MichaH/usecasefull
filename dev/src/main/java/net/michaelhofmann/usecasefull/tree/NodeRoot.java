@@ -52,7 +52,13 @@ public class NodeRoot extends AbstractNode {
         }
     }
     
+    @Override
+    public void endDocument() {
+        nodeCallback.endDocument();
+    }
+    
     /*  ***********************************************************************
      *  G e t t e r  und  S e t t e r
      **************************************************************************/
+
 }

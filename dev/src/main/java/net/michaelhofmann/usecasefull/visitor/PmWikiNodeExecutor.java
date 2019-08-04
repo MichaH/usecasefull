@@ -55,6 +55,10 @@ public class PmWikiNodeExecutor implements NodeCallback {
         System.out.println("(:title UseCases MobilHardware :)\n");
         System.out.println("(:toc :)\n");
     }
+
+    @Override
+    public void endDocument() {
+    }
     
     @Override
     public void startUsecases() {

@@ -19,4 +19,8 @@ public class Const {
     
     public static final String DATEFORMSTR = "yyyy-MM-dd";
     public static final DateFormat DATEFORM = new SimpleDateFormat(DATEFORMSTR);            
+    
+    public static final String TIMEFORMSTR = "yyyy-MM-dd HH:mm";
+    public static final DateFormat TIMEFORM = new SimpleDateFormat(TIMEFORMSTR);            
+    
 }

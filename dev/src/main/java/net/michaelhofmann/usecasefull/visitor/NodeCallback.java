@@ -23,6 +23,7 @@ public interface NodeCallback {
     public void init(CommandLine cmd) throws Exception;
 
     public void startDocument();
+    public void endDocument();
 
     public void startUsecases();
     public void startUsecase();
@@ -64,4 +65,5 @@ public interface NodeCallback {
     public void contentState(String toString, Date upDate, int percent);
 
     public void finishedQueue(UseCaseQueue ucQueue);
+
 }

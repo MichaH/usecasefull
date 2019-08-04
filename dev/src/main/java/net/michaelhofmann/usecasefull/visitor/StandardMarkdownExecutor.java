@@ -23,6 +23,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import net.michaelhofmann.usecasefull.usecase.UseCase;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
+import net.michaelhofmann.usecasefull.util.Jobinfo;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -42,6 +43,7 @@ public class StandardMarkdownExecutor extends SimpleNopExecutor {
     private File templateDir ;
     private Path outputFilePath;
     private Template templateUsecase;
+    private Template templateFooter;
     
     /*  ***********************************************************************
      *  C o n s t r u c t o r
@@ -66,22 +68,38 @@ public class StandardMarkdownExecutor extends SimpleNopExecutor {
     @Override
     public void finishedQueue(UseCaseQueue ucQueue) {
         try (BufferedWriter out = Files.newBufferedWriter(outputFilePath, charset)) {
+            // Usecases
             ucQueue.stream()
                     .filter(u -> StringUtils.isNotBlank(u.getName()))
                     .sorted((u1, u2) -> u1.getIdent().compareTo(u2.getIdent()))
                     .forEach(u -> {
                         processUseCase(u, out);
             });
+            // Footer
+            processFooter(Jobinfo.getInstance(), out);
+            
         } catch (IOException ex) {
             LOGGER.error("IO-Error", ex);
         }
+    }
+
+    @Override
+    public void endDocument() {
     }
     
     private void processUseCase(UseCase useCase, Writer out) {
         try {
             templateUsecase.process(useCase, out);
         } catch (TemplateException | IOException ex) {
-            LOGGER.error("process error", ex);
+            LOGGER.error("process useCase error", ex);
+        }
+    }
+    
+    private void processFooter(Jobinfo jobinfo, BufferedWriter out) {
+        try {
+            templateFooter.process(jobinfo, out);
+        } catch (TemplateException | IOException ex) {
+            LOGGER.error("process jobinfo error", ex);
         }
     }
     
@@ -106,6 +124,7 @@ public class StandardMarkdownExecutor extends SimpleNopExecutor {
         // TemplateException-s.
         cfg.setWrapUncheckedExceptions(true);
         templateUsecase = cfg.getTemplate("templateUsecase.md");
+        templateFooter = cfg.getTemplate("templateFooter.md");
     }
 
     private void equipOutputfileName(CommandLine cmd) throws IOException {
@@ -115,6 +134,7 @@ public class StandardMarkdownExecutor extends SimpleNopExecutor {
                     "no output filename given, please use -of");
         }
         outputFilePath = Paths.get(outputFileName);
+        Jobinfo.getInstance().setOutputFile(outputFilePath);
     }
 
     private void equipTemplateDir(CommandLine cmd) throws IOException {
@@ -135,4 +155,5 @@ public class StandardMarkdownExecutor extends SimpleNopExecutor {
     /*  ***********************************************************************
      *  G e t t e r  und  S e t t e r
      **************************************************************************/
+
 }

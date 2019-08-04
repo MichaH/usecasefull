@@ -45,6 +45,10 @@ public class SimpleNopExecutor implements NodeCallback {
     }
 
     @Override
+    public void endDocument() {
+    }
+    
+    @Override
     public void startUsecases() {
         
     }

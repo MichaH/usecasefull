@@ -16,6 +16,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import net.michaelhofmann.usecasefull.tree.Node;
 import net.michaelhofmann.usecasefull.tree.NodeRoot;
+import net.michaelhofmann.usecasefull.util.Jobinfo;
 import net.michaelhofmann.usecasefull.visitor.NodeCallback;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.lang3.StringUtils;
@@ -54,6 +55,7 @@ public class Traversor {
         
         NodeCallback callback = callbackFromCommandline();
         callback.init(cmd);
+        Jobinfo.getInstance().setVisitorClazz(callback.getClass().getSimpleName());
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser saxParser = factory.newSAXParser();
         final NodeRoot nodeRoot = new NodeRoot(null, callback);
@@ -89,6 +91,11 @@ public class Traversor {
                 String content = new String(ch, start, length);
                 LOGGER.debug("content = " + content);
                 pointer.addCcontent(content);
+            }
+
+            @Override
+            public void endDocument() throws SAXException {
+                pointer.endDocument();
             }
         };
 

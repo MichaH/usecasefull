@@ -18,6 +18,7 @@ import org.xml.sax.SAXException;
 public interface Node {
 
     public void startDocument();
+    public void endDocument();
 
     public Node startElement(String uri, String localName, String elementName, 
             Attributes attributes)
