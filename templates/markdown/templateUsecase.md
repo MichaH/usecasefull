@@ -25,7 +25,7 @@ ${parameter.note}
 
 <#if additionalInfos?has_content>
 	<#list additionalInfos as num, info>
-&#10133; **Additional Infos #${num}**  
+&#10133; **additional infos #${num}**  
 ${info.content}  
 		<#if info.notes?has_content>
 			<#list info.notes as note>
