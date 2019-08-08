@@ -49,6 +49,7 @@ public interface NodeCallback {
     public void startAdditionalNote();
     public void startCode(String layoutSpaces);
     public void startState(Date update, int percent);
+    public void startProcessInstruction(String attributeProcess);
 
     public void contentSubtype(String toString, Scope scope, GoalLevel goalLevel);
     public void contentIdent(String content);
@@ -65,6 +66,7 @@ public interface NodeCallback {
     public void contentAdditionalNote(String content);
     public void contentCode(String content, String layoutSpaces);
     public void contentState(String toString, Date upDate, int percent);
+    public void contentProcessInstruction(String process, String text);
 
     public void finishedQueue(UseCaseQueue ucQueue);
 }

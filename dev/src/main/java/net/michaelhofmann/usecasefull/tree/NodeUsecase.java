@@ -88,6 +88,12 @@ public class NodeUsecase extends AbstractNode {
                         node.getAttributeUpdate(), node.getAttributePercent());
                 return node;
             }
+            case pi: {
+                NodeProcessInstruction node = new NodeProcessInstruction(
+                        this, nodeCallback, attributes, usecase);
+                nodeCallback.startProcessInstruction(node.getAttributeProcess());
+                return node;
+            }
         }
         return this;
     }

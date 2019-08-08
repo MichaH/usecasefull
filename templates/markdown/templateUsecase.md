@@ -37,9 +37,16 @@ ${info.content}
 ${info.code}
 ````
 		</#if>
+
 	</#list>
 </#if>	
 
 
 &#9203; **state** : (${state.formatedUpdate}) ${freemarks.progressBarWithLabel}  ${state.text}  
 
+<#if processInstructions?has_content>
+&#9745; Instructions  
+    <#list processInstructions as pi>
+&#9744; (${pi?index}) ${pi.process}: ${pi.textN2E}  
+    </#list>
+</#if>

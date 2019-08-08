@@ -162,6 +162,12 @@ public class SimpleNopExecutor implements NodeCallback {
     }
 
     @Override
+    public void startProcessInstruction(String attributeProcess) {
+    }
+
+
+
+    @Override
     public void contentSubtype(String typeName, Scope scope, GoalLevel goalLevel) {
     }
 
@@ -232,6 +238,11 @@ public class SimpleNopExecutor implements NodeCallback {
     }
 
 
+    @Override
+    public void contentProcessInstruction(String process, String text) {
+    }
+
+
     
     @Override
     public void finishedQueue(UseCaseQueue ucQueue) {
@@ -241,5 +252,4 @@ public class SimpleNopExecutor implements NodeCallback {
     /*  ***********************************************************************
      *  G e t t e r  und  S e t t e r
      **************************************************************************/
-
 }

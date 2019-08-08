@@ -162,8 +162,9 @@ public class PmWikiNodeExecutor implements NodeCallback {
     public void startState(Date update, int percent) {
     }
 
-    
-
+    @Override
+    public void startProcessInstruction(String attributeProcess) {
+    }
 
 
 
@@ -284,7 +285,11 @@ public class PmWikiNodeExecutor implements NodeCallback {
             System.out.println(sb.toString());
         }
     }
-    
+
+    @Override
+    public void contentProcessInstruction(String process, String text) {
+    }
+
     private String progressColor(int percent) {
         if (percent > 99) {
             return "%green%";
@@ -346,5 +351,4 @@ public class PmWikiNodeExecutor implements NodeCallback {
                     + StandardPlusGetter.getProgressBarWithLabel(u.getState().getPercent()) + "-]";
         }
     }
-
 }

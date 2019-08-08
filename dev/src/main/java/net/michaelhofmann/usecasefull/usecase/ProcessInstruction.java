@@ -28,9 +28,9 @@ public class ProcessInstruction extends AbstractContainer {
     public ProcessInstruction() {
     }
 
-    public ProcessInstruction(String text, String process) {
-        this.text = text;
+    public ProcessInstruction(String process, String text) {
         this.process = process;
+        this.text = text;
     }
     
     /*  ***********************************************************************

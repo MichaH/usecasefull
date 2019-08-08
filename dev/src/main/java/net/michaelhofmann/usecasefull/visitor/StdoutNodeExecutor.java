@@ -181,10 +181,12 @@ public class StdoutNodeExecutor implements NodeCallback {
                 percent));
     }
 
-    
-
-
-    
+    @Override
+    public void startProcessInstruction(String process) {
+        System.out.println(
+                String.format("--> startProcessInstruction : process=%d",
+                process));
+    }
     
     
     @Override
@@ -273,6 +275,17 @@ public class StdoutNodeExecutor implements NodeCallback {
                 text));
     }
 
+
+    @Override
+    public void contentProcessInstruction(String process, String text) {
+        System.out.println(
+                String.format("--> contentProcessInstruction : process=%s\n%s",
+                process,
+                text));
+    }
+
+
+
     
 
     
@@ -282,7 +295,4 @@ public class StdoutNodeExecutor implements NodeCallback {
     @Override
     public void finishedQueue(UseCaseQueue ucQueue) {
     }
-
-
-
 }
