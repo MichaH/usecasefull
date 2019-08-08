@@ -10,7 +10,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-ea -classpath %classpath net.michaelhofmann.usecasefull.Transformer -v net.michaelhofmann.usecasefull.visitor.StandardMarkdownExecutor -f C:\proj\wob\biasinternetgroupservice\doku\BiasUseCases.xml -td C:\proj\gitmisc\usecasefull\templates\markdown -of C:\proj\wob\biasinternetgroupservice\doku\BiasUseCases.md</exec.args>
+                <exec.args>-ea -classpath %classpath net.michaelhofmann.usecasefull.Transformer -v net.michaelhofmann.usecasefull.visitor.StandardMarkdownExecutor -f C:\proj\wob\biasinternetgroupservice\doku\BiasUseCases.xml -td C:\proj\gitmisc\usecasefull\templates\markdown\instructions -of C:\proj\wob\biasinternetgroupservice\doku\BiasUseCasesInstructions.md</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
@@ -24,7 +24,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -ea -classpath %classpath net.michaelhofmann.usecasefull.Transformer -v net.michaelhofmann.usecasefull.visitor.StandardMarkdownExecutor -f C:\proj\wob\biasinternetgroupservice\doku\BiasUseCases.xml -td C:\proj\gitmisc\usecasefull\templates\markdown -of C:\proj\wob\biasinternetgroupservice\doku\BiasUseCases.md</exec.args>
+                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -ea -classpath %classpath net.michaelhofmann.usecasefull.Transformer -v net.michaelhofmann.usecasefull.visitor.StandardMarkdownExecutor -f C:\proj\wob\biasinternetgroupservice\doku\BiasUseCases.xml -td C:\proj\gitmisc\usecasefull\templates\markdown\instructions -of C:\proj\wob\biasinternetgroupservice\doku\BiasUseCasesInstructions.md</exec.args>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
             </properties>
@@ -39,7 +39,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-ea -classpath %classpath net.michaelhofmann.usecasefull.Transformer -v net.michaelhofmann.usecasefull.visitor.StandardMarkdownExecutor -f C:\proj\wob\biasinternetgroupservice\doku\BiasUseCases.xml -td C:\proj\gitmisc\usecasefull\templates\markdown -of C:\proj\wob\biasinternetgroupservice\doku\BiasUseCases.md</exec.args>
+                <exec.args>-ea -classpath %classpath net.michaelhofmann.usecasefull.Transformer -v net.michaelhofmann.usecasefull.visitor.StandardMarkdownExecutor -f C:\proj\wob\biasinternetgroupservice\doku\BiasUseCases.xml -td C:\proj\gitmisc\usecasefull\templates\markdown\instructions -of C:\proj\wob\biasinternetgroupservice\doku\BiasUseCasesInstructions.md</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
