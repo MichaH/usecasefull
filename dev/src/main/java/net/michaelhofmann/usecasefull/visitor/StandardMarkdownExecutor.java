@@ -71,7 +71,7 @@ public class StandardMarkdownExecutor extends SimpleNopExecutor {
             // Usecases
             ucQueue.stream()
                     .filter(u -> StringUtils.isNotBlank(u.getName()))
-                    .sorted((u1, u2) -> u1.getIdent().compareTo(u2.getIdent()))
+                    .sorted((u1, u2) -> u1.getName().compareTo(u2.getName()))
                     .forEach(u -> {
                         processUseCase(u, out);
             });

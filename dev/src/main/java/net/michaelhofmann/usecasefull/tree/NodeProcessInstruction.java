@@ -44,7 +44,6 @@ public class NodeProcessInstruction extends AbstractLeaf {
         nodeCallback.contentProcessInstruction(process, content.toString());
         usecase.getProcessInstructions()
                 .add(new ProcessInstruction(process, content.toString()));
-        System.out.println("size = " + usecase.getProcessInstructions().size());
     }
 
     /*  ***********************************************************************
