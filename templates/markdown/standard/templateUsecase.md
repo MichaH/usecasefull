@@ -42,7 +42,7 @@ ${info.code}
 </#if>	
 
 
-O **state** : (${state.formatedUpdate}) ${freemarks.progressBarWithLabel}  ${state.text}  
+O **state** : (${state.formatedUpdate}) ${freemarks.progressBarWithLabel}  ${state.textN2E}  
 
 <#if processInstructions?has_content>
 Instructions  
