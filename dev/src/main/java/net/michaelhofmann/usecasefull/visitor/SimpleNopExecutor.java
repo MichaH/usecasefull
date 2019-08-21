@@ -7,12 +7,24 @@
  */
 
 package net.michaelhofmann.usecasefull.visitor;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import net.michaelhofmann.usecasefull.definition.GoalLevel;
 import net.michaelhofmann.usecasefull.definition.NoteStereotype;
 import net.michaelhofmann.usecasefull.definition.Scope;
+import net.michaelhofmann.usecasefull.usecase.UseCase;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
+import net.michaelhofmann.usecasefull.util.Jobinfo;
 import org.apache.commons.cli.CommandLine;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -23,12 +35,20 @@ import org.apache.commons.logging.LogFactory;
 public class SimpleNopExecutor implements NodeCallback {
 
     private static final Log LOGGER = LogFactory.getLog(SimpleNopExecutor.class);
+    
+    protected final String CHARSET = "UTF-8";
+    protected final Charset charset;
+    protected CommandLine cmd;
+    protected Path outputFilePath;
+    protected Comparator<UseCase> comparator;
+    
 
     /*  ***********************************************************************
      *  C o n s t r u c t o r
      **************************************************************************/
 
     public SimpleNopExecutor() {
+        charset = Charset.forName(CHARSET);
     }
 
     /*  ***********************************************************************
@@ -37,7 +57,52 @@ public class SimpleNopExecutor implements NodeCallback {
 
     @Override
     public void init(CommandLine cmd) throws Exception {
+        this.cmd = cmd;
+        equipOutputfileName(cmd);
+        equipComparator(cmd);
     }
+    
+    private void equipComparator(CommandLine cmd) throws IOException {
+        String sortField = cmd.getOptionValue("s");
+        if (StringUtils.isBlank(sortField)) {
+            LOGGER.debug("default sorting by name");
+            sortField = "name";
+        }
+        switch (sortField.toLowerCase().trim()) {
+            case "ident":
+                comparator = (UseCase u1, UseCase u2) -> {
+                    return u1.getIdent().compareTo(u2.getIdent());
+                };
+                break;
+            case "name":
+                comparator = (UseCase u1, UseCase u2) -> {
+                    return u1.getName().compareTo(u2.getName());
+                };
+                break;
+            default:
+                throw new IllegalArgumentException("unknown sort field");
+        }
+    }
+    
+    private void equipOutputfileName(CommandLine cmd) throws IOException {
+        String outputFileName = cmd.getOptionValue("of");
+        if (StringUtils.isBlank(outputFileName)) {
+            throw new IOException(
+                    "no output filename given, please use -of");
+        }
+        outputFilePath = Paths.get(outputFileName);
+        Jobinfo.getInstance().setOutputFile(outputFilePath);
+    }
+
+    protected OpenOption[] getOpenOptions() {
+        Set<OpenOption> fileOptions = new HashSet<>();
+        if (cmd.hasOption("a")) {
+            fileOptions.add(StandardOpenOption.APPEND);
+        }
+        return fileOptions.toArray(new OpenOption[fileOptions.size()]);
+    }
+    
+    
     
     @Override
     public void startDocument() {

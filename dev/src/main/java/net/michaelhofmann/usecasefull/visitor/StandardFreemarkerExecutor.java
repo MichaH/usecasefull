@@ -17,10 +17,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.OpenOption;
+import java.nio.file.StandardOpenOption;
+import java.util.HashSet;
+import java.util.Set;
 import net.michaelhofmann.usecasefull.usecase.UseCase;
 import net.michaelhofmann.usecasefull.usecase.UseCaseQueue;
 import net.michaelhofmann.usecasefull.util.Jobinfo;
@@ -33,15 +34,12 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Michael.Hofmann@OrangeObjects.de
  */
-public class StandardMarkdownExecutor extends SimpleNopExecutor {
+public class StandardFreemarkerExecutor extends SimpleNopExecutor {
 
-    private static final Log LOGGER = LogFactory.getLog(StandardMarkdownExecutor.class);
+    private static final Log LOGGER = LogFactory.getLog(StandardFreemarkerExecutor.class);
 
-    private final String CHARSET = "UTF-8";
-    private final Charset charset;
-    
     private File templateDir ;
-    private Path outputFilePath;
+    private Template templateHeader;
     private Template templateUsecase;
     private Template templateFooter;
     
@@ -49,8 +47,7 @@ public class StandardMarkdownExecutor extends SimpleNopExecutor {
      *  C o n s t r u c t o r
      **************************************************************************/
 
-    public StandardMarkdownExecutor() {
-        charset = Charset.forName(CHARSET);
+    public StandardFreemarkerExecutor() {
     }
 
     /*  ***********************************************************************
@@ -58,23 +55,29 @@ public class StandardMarkdownExecutor extends SimpleNopExecutor {
      **************************************************************************/
     
     @Override
-    public void init(CommandLine cmd) throws IOException {
+    public void init(CommandLine cmd) throws Exception {
+        super.init(cmd);
         equipTemplateDir(cmd);
-        equipOutputfileName(cmd);
         equipFreemarker();
     }
 
-
     @Override
     public void finishedQueue(UseCaseQueue ucQueue) {
-        try (BufferedWriter out = Files.newBufferedWriter(outputFilePath, charset)) {
+        
+        try (BufferedWriter out 
+                = Files.newBufferedWriter(outputFilePath, charset, getOpenOptions())) {
+            
+            // Header
+            processHeader(Jobinfo.getInstance(), out);
+
             // Usecases
             ucQueue.stream()
                     .filter(u -> StringUtils.isNotBlank(u.getName()))
-                    .sorted((u1, u2) -> u1.getName().compareTo(u2.getName()))
+                    .sorted(comparator)
                     .forEach(u -> {
                         processUseCase(u, out);
             });
+            
             // Footer
             processFooter(Jobinfo.getInstance(), out);
             
@@ -83,10 +86,14 @@ public class StandardMarkdownExecutor extends SimpleNopExecutor {
         }
     }
 
-    @Override
-    public void endDocument() {
+    private void processHeader(Jobinfo jobinfo, Writer out) {
+        try {
+            templateHeader.process(jobinfo, out);
+        } catch (TemplateException | IOException ex) {
+            LOGGER.error("process header error", ex);
+        }
     }
-    
+
     private void processUseCase(UseCase useCase, Writer out) {
         try {
             templateUsecase.process(useCase, out);
@@ -95,14 +102,14 @@ public class StandardMarkdownExecutor extends SimpleNopExecutor {
         }
     }
     
-    private void processFooter(Jobinfo jobinfo, BufferedWriter out) {
+    private void processFooter(Jobinfo jobinfo, Writer out) {
         try {
             templateFooter.process(jobinfo, out);
         } catch (TemplateException | IOException ex) {
-            LOGGER.error("process jobinfo error", ex);
+            LOGGER.error("process footer error", ex);
         }
     }
-    
+
     private void equipFreemarker() throws IOException {
         // Create your Configuration instance, and specify if up to what
         // FreeMarker version (here 2.3.28) do you want to apply the fixes that
@@ -123,18 +130,9 @@ public class StandardMarkdownExecutor extends SimpleNopExecutor {
         // Wrap unchecked exceptions thrown during template processing into 
         // TemplateException-s.
         cfg.setWrapUncheckedExceptions(true);
-        templateUsecase = cfg.getTemplate("templateUsecase.md");
-        templateFooter = cfg.getTemplate("templateFooter.md");
-    }
-
-    private void equipOutputfileName(CommandLine cmd) throws IOException {
-        String outputFileName = cmd.getOptionValue("of");
-        if (StringUtils.isBlank(outputFileName)) {
-            throw new IOException(
-                    "no output filename given, please use -of");
-        }
-        outputFilePath = Paths.get(outputFileName);
-        Jobinfo.getInstance().setOutputFile(outputFilePath);
+        templateHeader = cfg.getTemplate("templateHeader.txt");
+        templateUsecase = cfg.getTemplate("templateUsecase.txt");
+        templateFooter = cfg.getTemplate("templateFooter.txt");
     }
 
     private void equipTemplateDir(CommandLine cmd) throws IOException {

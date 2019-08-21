@@ -107,6 +107,10 @@ public class Transformer {
                         "full qualified directory with template(s)")
                 .addOption("of", "outputFile", true,
                         "full qualified file for output")
+                .addOption("s", "sort", true,
+                        "sort list by [name|ident]")
+                .addOption("a", "append", false,
+                        "append to output file")
                 ;
     }
 

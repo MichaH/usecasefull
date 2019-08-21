@@ -61,7 +61,7 @@ public class Traversor {
         final NodeRoot nodeRoot = new NodeRoot(null, callback);
 
         DefaultHandler handler = new DefaultHandler() {
-            Node pointer = nodeRoot;
+            private Node pointer = nodeRoot;
 
             @Override
             public void startDocument() throws SAXException {

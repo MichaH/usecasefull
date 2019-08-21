@@ -7,6 +7,9 @@
  */
 
 package net.michaelhofmann.usecasefull.visitor;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,11 +28,13 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Michael.Hofmann@OrangeObjects.de
  */
-public class PmWikiNodeExecutor implements NodeCallback {
+public class PmWikiNodeExecutor extends SimpleNopExecutor {
 
     private static final Log LOGGER = LogFactory.getLog(PmWikiNodeExecutor.class);
     
-    public static final DateFormat DATEFORM = new SimpleDateFormat("dd.MM.yyyy");       
+    public static final DateFormat DATEFORM = new SimpleDateFormat("dd.MM.yyyy");    
+    
+    private BufferedWriter out;
 
     /*  ***********************************************************************
      *  C o n s t r u c t o r
@@ -43,21 +48,45 @@ public class PmWikiNodeExecutor implements NodeCallback {
      **************************************************************************/
 
     @Override
-    public void init(CommandLine cmd) {
+    public void init(CommandLine cmd) throws Exception {
+        super.init(cmd);
     }
 
     /*  ***********************************************************************
      *  G e t t e r  und  S e t t e r
      **************************************************************************/
 
+    private void writeln(String str) {
+        write(str);
+        write("\n");
+    }
+    
+    private void write(String str) {
+        try {
+            out.write(str.toCharArray());
+        } catch (IOException ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
+    }
+    
+    
     @Override
     public void startDocument() {
-        System.out.println("(:title UseCases MobilHardware :)\n");
-        System.out.println("(:toc :)\n");
+        try {
+            out = Files.newBufferedWriter(outputFilePath, charset, getOpenOptions());
+        } catch (IOException ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
     }
 
     @Override
     public void endDocument() {
+        try {
+            out.flush();
+            out.close();
+        } catch (IOException ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
     }
     
     @Override
@@ -66,8 +95,8 @@ public class PmWikiNodeExecutor implements NodeCallback {
 
     @Override
     public void startUsecase() {
-        System.out.println("\n\n----");
-        System.out.print("!!! ");
+        writeln("\n\n----");
+        write("!!! ");
     }
 
     @Override
@@ -96,14 +125,14 @@ public class PmWikiNodeExecutor implements NodeCallback {
     
     @Override
     public void startNotes() {
-        System.out.println("\n!!!!! Bemerkungen");
+        writeln("\n!!!!! Bemerkungen");
     }
 
     private int actorCounter = 0;
     
     @Override
     public void startActors() {
-        System.out.print("\n'''Akteure'''");
+        write("\n'''Akteure'''");
         actorCounter = 0;
     }
 
@@ -113,7 +142,7 @@ public class PmWikiNodeExecutor implements NodeCallback {
 
     @Override
     public void startWorkflow() {
-        System.out.println("\n!!!!! Workflow");        
+        writeln("\n!!!!! Workflow");        
     }
     
     @Override
@@ -126,7 +155,7 @@ public class PmWikiNodeExecutor implements NodeCallback {
     
     @Override
     public void startAdditionalinfo(long num) {
-        System.out.println("\n!!!! Zusatzinformation " + num);        
+        writeln("\n!!!! Zusatzinformation " + num);        
     }
     
     @Override
@@ -143,7 +172,7 @@ public class PmWikiNodeExecutor implements NodeCallback {
     
     @Override
     public void startInput() {
-        System.out.println("\n!!!! Eingangsparameter ");        
+        writeln("\n!!!! Eingangsparameter ");        
     }
 
     @Override
@@ -173,29 +202,29 @@ public class PmWikiNodeExecutor implements NodeCallback {
     
     @Override
     public void contentIdent(String content) {
-        System.out.print(" " + content + "[[#uc" + content + "]]");
+        write(" " + content + "[[#uc" + content + "]]");
     }
 
     @Override
     public void contentSubtype(String typeName, Scope scope, GoalLevel goalLevel) {
-        System.out.print(typeName);
+        write(typeName);
     }
 
     @Override
     public void contentName(String content) {
-        System.out.println(" | " + content);
+        writeln(" | " + content);
     }
 
     @Override
     public void contentSummary(String content) {
         content = normalize(content);
-        System.out.println(" \n [+" + content + "+]\n ");
+        writeln(" \n [+" + content + "+]\n ");
     }
 
     @Override
     public void contentVariation(String content, long num) {
-        System.out.println("Variation " + num + ":");
-        System.out.println("-> " + content);
+        writeln("Variation " + num + ":");
+        writeln("-> " + content);
     }
     
     @Override
@@ -206,9 +235,9 @@ public class PmWikiNodeExecutor implements NodeCallback {
     public void contentNote(String content, NoteStereotype stereotype) {
         content = normalize(content);
         if ((stereotype == null) || (NoteStereotype.Default.equals(stereotype))) {
-            System.out.println("* " + content);
+            writeln("* " + content);
         } else {
-            System.out.println("* <" + stereotype.name() + "> " + content);
+            writeln("* <" + stereotype.name() + "> " + content);
         }
     }
     
@@ -217,11 +246,11 @@ public class PmWikiNodeExecutor implements NodeCallback {
         if (StringUtils.isNotBlank(content)) {
             content = normalize(content);
             if (actorCounter > 0) {
-                System.out.print(", ");
+                write(", ");
             } else {
-                System.out.print(" : ");
+                write(" : ");
             }
-            System.out.print(content);
+            write(content);
             actorCounter++;
         }
     }
@@ -231,11 +260,11 @@ public class PmWikiNodeExecutor implements NodeCallback {
         if (StringUtils.isNotBlank(content)) {
             content = normalize(content);
             if (StringUtils.isBlank(actor)) {
-                System.out.print(order + ". " + content);
+                write(order + ". " + content);
             } else {
-                System.out.print(order + ". (" + actor + ") " + content);
+                write(order + ". (" + actor + ") " + content);
             }
-            System.out.println(" \\\\");
+            writeln(" \\\\");
         }        
     }
 
@@ -245,7 +274,7 @@ public class PmWikiNodeExecutor implements NodeCallback {
     
     @Override
     public void contentContent(String content) {
-        System.out.println(content + " \\\\");
+        writeln(content + " \\\\");
     }
 
     @Override
@@ -254,18 +283,18 @@ public class PmWikiNodeExecutor implements NodeCallback {
     
     @Override
     public void contentCode(String content, String layoutSpaces) {
-        System.out.println("   " + content);
+        writeln("   " + content);
     }
     
     @Override
     public void contentParacontent(String content) {
-        System.out.println("* -> ''" + content + "''");
+        writeln("* -> ''" + content + "''");
     }
     
     @Override
     public void contentParanote(String content) {
         content = normalize(content);
-        System.out.println("** " + content);
+        writeln("** " + content);
     }
 
     @Override
@@ -282,7 +311,7 @@ public class PmWikiNodeExecutor implements NodeCallback {
             sb.append("-]");
         }
         if (sb.length() > 0) {
-            System.out.println(sb.toString());
+            writeln(sb.toString());
         }
     }
 
@@ -310,37 +339,37 @@ public class PmWikiNodeExecutor implements NodeCallback {
 
     @Override
     public void finishedQueue(UseCaseQueue ucQueue) {
-        System.out.println("!!!! nach Ident-Nummer sortiert");
-        System.out.println("|| border=0");
-        String formatI = "||[[#uc%s|%s%s]] || ||%s ||%s ||";
-        ucQueue.stream()
-                .filter(u -> StringUtils.isNotBlank(u.getName()))
-                .filter(u -> StringUtils.isNotBlank(u.getIdent()))
-                .sorted((u1, u2) -> u1.getIdent().compareTo(u2.getIdent()))
-                .forEach(u -> {
-                    System.out.println(String.format(formatI,
-                            u.getIdent(),
-                            u.getSubtypePrefix(),
-                            u.getIdent(),
-                            u.getName(),
-                            progressBar4Listing(u)));
-        });
-        
-        System.out.println("!!!! nach Name sortiert");
-        System.out.println("|| border=0");
-        String formatN = "||[[#uc%s|%s]] || ||%s%s ||%s ||";
-        ucQueue.stream()
-                .filter(u -> StringUtils.isNotBlank(u.getName()))
-                .filter(u -> StringUtils.isNotBlank(u.getIdent()))
-                .sorted((u1, u2) -> u1.getName().compareTo(u2.getName()))
-                .forEach(u -> {
-                    System.out.println(String.format(formatN,
-                            u.getIdent(),
-                            u.getName(),
-                            u.getSubtypePrefix(),
-                            u.getIdent(),
-                            progressBar4Listing(u)));
-        });
+//        writeln("!!!! nach Ident-Nummer sortiert");
+//        writeln("|| border=0");
+//        String formatI = "||[[#uc%s|%s%s]] || ||%s ||%s ||";
+//        ucQueue.stream()
+//                .filter(u -> StringUtils.isNotBlank(u.getName()))
+//                .filter(u -> StringUtils.isNotBlank(u.getIdent()))
+//                .sorted((u1, u2) -> u1.getIdent().compareTo(u2.getIdent()))
+//                .forEach(u -> {
+//                    writeln(String.format(formatI,
+//                            u.getIdent(),
+//                            u.getSubtypePrefix(),
+//                            u.getIdent(),
+//                            u.getName(),
+//                            progressBar4Listing(u)));
+//        });
+//        
+//        writeln("!!!! nach Name sortiert");
+//        writeln("|| border=0");
+//        String formatN = "||[[#uc%s|%s]] || ||%s%s ||%s ||";
+//        ucQueue.stream()
+//                .filter(u -> StringUtils.isNotBlank(u.getName()))
+//                .filter(u -> StringUtils.isNotBlank(u.getIdent()))
+//                .sorted((u1, u2) -> u1.getName().compareTo(u2.getName()))
+//                .forEach(u -> {
+//                    writeln(String.format(formatN,
+//                            u.getIdent(),
+//                            u.getName(),
+//                            u.getSubtypePrefix(),
+//                            u.getIdent(),
+//                            progressBar4Listing(u)));
+//        });
     }
     
     private String progressBar4Listing(UseCase u) {
