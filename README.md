@@ -1,4 +1,4 @@
-**E n g l i s c h**
+**E n g l i s h**
 
 This project (*usecasefull*)
 - defines an open structure (XML) to document use cases formally and uniformly,
